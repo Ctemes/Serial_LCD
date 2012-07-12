@@ -82,24 +82,26 @@ void new_game() {
 
 
 void setup() {
-  Serial.begin(9600); 
-  Serial.println("\n\n\n***"); 
+//  Serial.begin(9600); 
+//  Serial.println("\n\n\n***"); 
 
-  Serial.print("Wire.begin...");
+//  Serial.print("Wire.begin...");
   Wire.begin();
-  Serial.println("done");
+//  Serial.println("done");
 
-  Serial.print("mySerial.begin...");
+//  Serial.print("mySerial.begin...");
   mySerial.begin(9600); 
-  Serial.println("done");
+//  Serial.println("done");
 
-  Serial.print("myLCD.begin...");
+//  Serial.print("myLCD.begin...");
   myLCD.begin(4); 
-  Serial.println("done");
+//  Serial.println("done");
 
-  myLCD.setSpeed(115200); 
-  Serial1.begin(115200); 
-
+  myLCD.setSpeed(57600); 
+  mySerial.begin(57600); 
+//  myLCD.setSpeed(115200); 
+//  mySerial.begin(115200); 
+  
   myLCD.setOrientation(0x03); 
   myLCD.setPenSolid(true); 
   myLCD.setTouch(true); 
