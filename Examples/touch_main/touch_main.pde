@@ -1,63 +1,79 @@
-// 
-// μLCD-32PT(SGC) 3.2” Serial LCD Display Module
-// Arduino & chipKIT Library
 //
-// Example - see README.txt
-// © Rei VILO, 2010-2012
-// CC = BY NC SA
-// http://sites.google.com/site/vilorei/
-// http://github.com/rei-vilo/Serial_LCD
-//
-//
-// Based on
-// 4D LABS PICASO-SGC Command Set
-// Software Interface Specification
-// Document Date: 1st March 2011 
-// Document Revision: 6.0
-// http://www.4d-Labs.com
-//
-//
+/// @file 	memu_main.pde
+/// @brief	Example
+/// @details 	
+/// @n @a 	Example for Serial_LCD Library Suite
+/// @n @a	for 4D Systems uLCD-uLED-uVGA Serial_LCD Library Suite
+/// @n 		on Arduino 0023 and 1.0, chipKIT MPIDE 0023, Wiring 1.0
+///
+/// @a 		Developed with [embedXcode](http://embedXcode.weebly.com)
+/// 
+/// @author 	Rei VILO
+/// @author 	http://embeddedcomputing.weebly.com
+/// @date	Jul 12, 2012
+/// @version	release 132
+/// @n
+/// @copyright 	© Rei VILO, 2010-2012
+/// @copyright 	CC = BY NC SA
+/// @n		http://embeddedcomputing.weebly.com/serial-lcd.html
+/// @n		http://github.com/rei-vilo/Serial_LCD
+///
+/// @see 	4D Systems Goldelox and Picaso SGC Command Set
+/// @n		http://www.4dsystems.com.au/
+///
 
+// Core library
+#if defined (__AVR_ATmega328P__) || defined (__AVR_ATmega2560__) // Arduino specific
+#include "WProgram.h" // — for Arduino 0023
+// #include  "Arduino.h" // — for Arduino 1.0
+#elif defined(__32MX320F128H__) || defined(__32MX795F512L__) // chipKIT specific 
+#include "WProgram.h"
+#elif defined(__AVR_ATmega644P__) // Wiring specific
+#include "Wiring.h"
+#elif defined(__MSP430G2452__) || defined(__MSP430G2553__) || defined(__MSP430G2231__) // LaunchPad specific
+#include "Energia.h"
+#endif
 
-// Needs to be defined in both proxySerial and main program
-#define __i2cSerialPort__ 
-
-#include "Serial_LCD.h"
+// Include application, user and local libraries
+#include "Wire.h"
 #include "proxySerial.h"
+#include "Serial_LCD.h"
 #include "GUI.h"
 
-
 // test release
-#if GUI_RELEASE < 23
-#error required GUI_RELEASE 23
+#if GUI_RELEASE < 114
+#error required GUI_RELEASE 114
 #endif
 
-#define __i2cSerialPort__
+// uncomment for I2C serial interface
+//#define __I2C_Serial__
 
+// === Serial port choice ===
+#if defined(__I2C_Serial__) // I2C serial
+  #include "Wire.h"
+  #include "I2C_Serial.h"
+  I2C_Serial mySerial(0);
 
-// I2C case
-#if defined(__i2cSerialPort__) 
-#include "Wire.h"
-#include "I2C_Serial.h"
-I2C_Serial myI2CSerial;
-ProxySerial mySerial(&myI2CSerial);
+#elif defined (__AVR_ATmega328P__) // software serial
+  #if defined(ARDUINO) && (ARDUINO>=100) // for Arduino 1.0
+    #include "SoftwareSerial.h"
+    SoftwareSerial mySerial(2, 3);
+  #else
+    #include "NewSoftSerial.h" // for Arduino 23
+    NewSoftSerial mySerial(2, 3);
+  #endif
 
-// Arduino Case
-#elif defined(__AVR__)  || defined (__AVR_ATmega328P__)  
-#include "NewSoftSerial.h"
-NewSoftSerial nss(2, 3); // RX, TX
-ProxySerial mySerial(&nss);
+#elif defined(__32MX320F128H__) || defined(__32MX795F512L__) || defined (__AVR_ATmega2560__) || defined(__AVR_ATmega644P__) // hardware serial Serial1
+  #define mySerial Serial1
 
-// chipKIT Case
-#elif defined(__PIC32MX__) 
-ProxySerial Serial1;
-
-#else
-#error Non defined board
+#else // error
+  #error Platform not defined
 #endif
+// === End of Serial port choice ===
 
-
-Serial_LCD myLCD( &mySerial); 
+// Define variables and constants
+ProxySerial myPort(&mySerial); // hardware abstraction layer
+Serial_LCD myLCD(&myPort); // LCD
 
 uint16_t x, y;
 uint32_t l;
@@ -67,35 +83,34 @@ button b7;
 
 
 void setup() {
-  Serial.begin(19200);
+  Serial.begin(9600);
   Serial.print("\n\n\n***\n");
 
-  //#if defined(__AVR__)  || defined (__AVR_ATmega328P__) | defined (__AVR_ATmega328P__)
-  //  Serial.print("avr\t");
-  //  Serial.print(__AVR__);
-  //  Serial.print("\n");
-  //#elif defined(__PIC32MX__) 
-  //  Serial.print("chipKIT\t");
-  //  Serial.print(__PIC32MX__);
-  //  Serial.print("\n");
-  //#endif 
-
-#if defined(__i2cSerialPort__) 
+  // === Serial port initialisation ===
+#if defined(__I2C_Serial__)
+  Serial.print("i2c Serial\n");
   Wire.begin();
+
+#elif defined(__AVR_ATmega328P__) 
+  Serial.print("Software Serial\n");
+
+#elif defined(__32MX320F128H__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega644P__)
+  Serial.print("Hardware Serial\n");
+
 #endif 
+  // === End of Serial port initialisation ===
+  mySerial.begin(9600);
 
-  myI2CSerial.begin(9600);
-  Serial.print("I2C 9600 \n");
+  myLCD.begin(4);  // 9600 at start-up
 
+  // === Serial port speed change ===
+  if (false) {
+    myLCD.setSpeed(38400);
+    mySerial.begin(38400);
+  }
+  // === End of Serial port speed change ===
 
-  myLCD.begin();
-  Serial.print("LCD begin \n");
   myLCD.setOrientation(0x03);
-
-//  myLCD.setSpeed(19200);
-//  myI2CSerial.begin(19200);
-//  Serial.print("I2C 19200 \n");
-
   myLCD.setPenSolid(true);
   myLCD.setFontSolid(true);
 

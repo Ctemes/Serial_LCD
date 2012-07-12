@@ -1,35 +1,41 @@
-// 
-// 4D Systems μLCD-μLED-μVGA Serial_LCD Library Suite
-// Arduino 0023 chipKIT MPIDE 0023 Library
-// ----------------------------------
-// Example
-//
-// Apr 25, 2012 
-// See README.txt
-//
-// © Rei VILO, 2010-2012
-//   CC = BY NC SA
-//   http://embeddedcomputing.weebly.com/serial-lcd.html
-//   http://github.com/rei-vilo/Serial_LCD
-//
-// For 
-//   4D Systems Goldelox and Picaso SGC Command Set
-//   http://www.4dsystems.com.au/
-//
-//
+///
+/// @file 	serial_hardware.pde
+/// @brief	Example
+/// @details 	
+/// @n @a 	Example for Serial_LCD Library Suite
+/// @n @a	for 4D Systems uLCD-uLED-uVGA Serial_LCD Library Suite
+/// @n 		on Arduino 0023 and 1.0, chipKIT MPIDE 0023, Wiring 1.0
+///
+/// @a 		Developed with [embedXcode](http://embedXcode.weebly.com)
+/// 
+/// @author 	Rei VILO
+/// @author 	http://embeddedcomputing.weebly.com
+/// @date	Jul 12, 2012
+/// @version	release 132
+/// @n
+/// @copyright 	© Rei VILO, 2010-2012
+/// @copyright 	CC = BY NC SA
+/// @n		http://embeddedcomputing.weebly.com/serial-lcd.html
+/// @n		http://github.com/rei-vilo/Serial_LCD
+///
+/// @see 	4D Systems Goldelox and Picaso SGC Command Set
+/// @n		http://www.4dsystems.com.au/
+///
 #include "Serial_LCD.h"
 #include "proxySerial.h"
 #include "GUI.h"
 
 
 // test release
-#if GUI_RELEASE < 109
-#error required GUI_RELEASE 109
+#if GUI_RELEASE < 114
+#error required GUI_RELEASE 114
 #endif
 
+
 // --- HardwareSerial Case - Arduino + chipKIT
-ProxySerial mySerial(&Serial1);
-Serial_LCD myLCD( &mySerial); 
+  #define mySerial Serial1
+ProxySerial myPort(&mySerial);
+Serial_LCD myLCD(&myPort); 
 button b7;
 
 uint16_t x, y;
@@ -40,16 +46,16 @@ void setup() {
   Serial.print("\n\n\n***\n");
 
   // --- HardwareSerial Case - Arduino + chipKIT
-  Serial1.begin(9600);
+  mySerial.begin(9600);
   Serial.print("HardwareSerial 9600 \n");
 
   myLCD.begin(4); // Arduino pin 4 connected to screen RESET
 
   delay(10);
   // === Serial port speed up
-  myLCD.setSpeed(115200);
-  Serial1.begin(115200);
-  Serial.print("Serial 115200 \n");
+  myLCD.setSpeed(38400);
+  mySerial.begin(38400);
+  Serial.print("Serial 38400 \n");
 
 
   myLCD.setOrientation(0x03);

@@ -1,26 +1,26 @@
-// 
-// 4D Systems μLCD-μLED-μVGA Serial_LCD Library Suite
-// Arduino 0023 chipKIT MPIDE 0023 Library
-// ----------------------------------
-//
-//  energy_main.pde
-//  Sketch 
-//  ----------------------------------
-//  Developed with embedXcode
-//
-// Apr 28, 2012 release 101
-// See README.txt
-//
-// © Rei VILO, 2010-2012
-//   CC = BY NC SA
-//   http://embeddedcomputing.weebly.com/serial-lcd.html
-//   http://github.com/rei-vilo/Serial_LCD
-//
-// For 
-//   4D Systems Goldelox and Picaso SGC Command Set
-//   http://www.4dsystems.com.au/
-//
-//
+///
+/// @file 	energy_main.pde
+/// @brief	Example
+/// @details 	
+/// @n @a 	Example for Serial_LCD Library Suite
+/// @n @a	for 4D Systems uLCD-uLED-uVGA Serial_LCD Library Suite
+/// @n 		on Arduino 0023 and 1.0, chipKIT MPIDE 0023, Wiring 1.0
+///
+/// @a 		Developed with [embedXcode](http://embedXcode.weebly.com)
+/// 
+/// @author 	Rei VILO
+/// @author 	http://embeddedcomputing.weebly.com
+/// @date	Jul 12, 2012
+/// @version	release 132
+/// @n
+/// @copyright 	© Rei VILO, 2010-2012
+/// @copyright 	CC = BY NC SA
+/// @n		http://embeddedcomputing.weebly.com/serial-lcd.html
+/// @n		http://github.com/rei-vilo/Serial_LCD
+///
+/// @see 	4D Systems Goldelox and Picaso SGC Command Set
+/// @n		http://www.4dsystems.com.au/
+///
 
 // Core library
 #if defined (__AVR_ATmega328P__) || defined (__AVR_ATmega2560__) // Arduino specific
@@ -41,7 +41,8 @@
 #include "GUI.h"
 
 // Define variables and constants
-ProxySerial myPort(&Serial1);
+#define mySerial Serial1
+ProxySerial myPort(&mySerial);
 Serial_LCD myLCD(&myPort);
 Energy myEnergy;
 uint32_t ui;
@@ -52,7 +53,7 @@ void setup() {
   Serial.begin(9600);
   Serial.print("\n\n\n***\n");
 
-  Serial1.begin(9600);
+  mySerial.begin(9600);
   myLCD.begin(4);
   myLCD.setTouch(true);
 

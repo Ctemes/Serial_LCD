@@ -1,62 +1,77 @@
-//
-// SC16IS750 I2C slave bridge to serial
-// Arduino + chipKIT Library
-//
-// May 01, 2012 release 105
-// see README.txt
-//
-// © Rei VILO, 2010-2012
-//   CC = BY NC SA
-//   http://embeddedcomputing.weebly.com/serial-lcd.html
-//   http://github.com/rei-vilo/Serial_LCD
-//
-//
+///
+/// @file	I2C_Serial.h
+/// @brief	SC16IS750 I2C slave bridge to serial
+/// @details	I2C to serial bridge and 8 I/Os 
+/// @n	
+/// @n	
+/// @n @a	Developed with [embedXcode](http://embedXcode.weebly.com)
+/// @n
+/// @author 	Rei VILO
+/// @author 	http://embeddedcomputing.weebly.com
+/// @date 	May 01, 2012
+/// @version 	release 2
+/// @n
+/// @copyright	© Rei VILO, 2010-2012
+/// @copyright	CC = BY NC SA
+/// @n		http://embeddedcomputing.weebly.com/
+///
+
+
 #define I2C_SERIAL_RELEASE 105
 
 #ifndef I2C_Serial_h
 #define I2C_Serial_h
 
+// Core library - MCU-based
+#if defined (__AVR_ATmega328P__) || defined (__AVR_ATmega2560__) // Arduino specific
+#if defined(ARDUINO) && (ARDUINO >= 100)
+#include "Arduino.h" // for Arduino 1.0
+#else
+#include "WProgram.h" // for Arduino 23
+#endif
+#elif defined(__32MX320F128H__) || defined(__32MX795F512L__) // chipKIT specific 
 #include "WProgram.h"
-#include "Stream.h"
+#elif defined(__AVR_ATmega644P__) // Wiring specific
+#include "Wiring.h"
+#elif defined(__MSP430G2452__) || defined(__MSP430G2553__) || defined(__MSP430G2231__) // LaunchPad specific
+#include "Energia.h"
+#elif defined(MCU_STM32F103RB) || defined(MCU_STM32F103ZE) || defined(MCU_STM32F103CB) || defined(MCU_STM32F103RE) // Maple specific
+#include "WProgram.h"	
+#pragma monmessage
+#else // error
+#error Platform not defined
+#endif
+
+//#include "Stream.h"
 #include "Wire.h"
+#include "Print.h"
 
-// I2C_Serial() or 
-// I2C_Serial(0)  : _address=0x48; : a0/a1=+/+ : default I2C serial port
-// I2C_Serial(1)  : _address=0x49; : a0/a1=-/+ : secondary I2C serial port
-// I2C_Serial(2)  : _address=0x4c; : a0/a1=+/- : RFID ID-2 sensor board
-// I2C_Serial(12) : _address=0x4d; : a0/a1=-/- : RFID ID-12 sensor board
 #define ALL  0xff
-
 
 class I2C_Serial : public Stream {
 public:
-    I2C_Serial(uint8_t b=0); // 2 for ID2 or 12 for ID12, default = 0, 1 otherwise
-    String WhoAmI();
-    void begin(long b=9600);
-    
-    // write and read functions
-    virtual void write(uint8_t byte);
-    virtual int read();
-    
-    // management functions
-    virtual int available();
-    virtual void flush();
-    virtual int peek(); // !
-    uint8_t free();       // TX
-    
-    // tests functions
-    boolean test();
-    void loopback(boolean b=true);
-    
-    // I/O functions
-    void pinMode(uint8_t pin, uint8_t mode); // pin=0..7, mode=0=INPUT or 1=OUPUT; pin=ALL, mode=bit map
-    void digitalWrite(uint8_t pin, uint8_t val); // pin=0..7, val=0=LOW or 1=HIGH; ; pin=ALL, val=bit map
-    int digitalRead(uint8_t pin); // pin=0..7, LOW or HIGH; pin=ALL, bit map
-	void reset(uint8_t pin, uint8_t val=LOW, uint8_t ms=10); // pin=0..7, reset val=0=LOW or 1=HIGH; ; pin=ALL, val=bit map
-    
-    
+  I2C_Serial(uint8_t number=0); 
+  String WhoAmI();
+  void begin(long baud=9600);
+#if defined(ARDUINO) && (ARDUINO >= 100)
+  virtual size_t write(uint8_t byte);
+#else
+  virtual void write(uint8_t byte);
+#endif
+  virtual int read();
+  virtual int available();
+  virtual void flush();
+  virtual int peek(); // !
+  uint8_t free();       
+  boolean test();
+  void loopback(boolean flag=true);
+  void pinMode(uint8_t pin, uint8_t mode); 
+  void digitalWrite(uint8_t pin, uint8_t value); 
+  int digitalRead(uint8_t pin);
+  void reset(uint8_t pin, uint8_t value=LOW, uint8_t ms=10);  
+  
 private:
-    int8_t _address;
+  int8_t _address;
 };
 
 #endif

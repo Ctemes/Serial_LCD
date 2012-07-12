@@ -1,22 +1,26 @@
-// 
-// Gallery example
-//
-// 4D Systems μLCD-μLED-μVGA Serial_LCD Library Suite
-// Arduino 0023 chipKIT MPIDE 0023 Library
-// ----------------------------------
-//
-// Apr 24, 2012 
-// See README.txt
-//
-// © Rei VILO, 2010-2012
-//   CC = BY NC SA
-//   http://embeddedcomputing.weebly.com/serial-lcd.html
-//   http://github.com/rei-vilo/Serial_LCD
-//
-// For 
-//   4D Systems Goldelox and Picaso SGC Command Set
-//   http://www.4dsystems.com.au/
-//
+///
+/// @file 	Gallery_main.pde
+/// @brief	Example
+/// @details 	
+/// @n @a 	Example for Serial_LCD Library Suite
+/// @n @a	for 4D Systems uLCD-uLED-uVGA Serial_LCD Library Suite
+/// @n 		on Arduino 0023 and 1.0, chipKIT MPIDE 0023, Wiring 1.0
+///
+/// @a 		Developed with [embedXcode](http://embedXcode.weebly.com)
+/// 
+/// @author 	Rei VILO
+/// @author 	http://embeddedcomputing.weebly.com
+/// @date	Jul 12, 2012
+/// @version	release 132
+/// @n
+/// @copyright 	© Rei VILO, 2010-2012
+/// @copyright 	CC = BY NC SA
+/// @n		http://embeddedcomputing.weebly.com/serial-lcd.html
+/// @n		http://github.com/rei-vilo/Serial_LCD
+///
+/// @see 	4D Systems Goldelox and Picaso SGC Command Set
+/// @n		http://www.4dsystems.com.au/
+///
 //
 #include "Serial_LCD.h"
 #include "proxySerial.h"

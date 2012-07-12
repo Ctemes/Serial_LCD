@@ -1,50 +1,48 @@
-// 
-// 4D Systems μLCD-μLED-μVGA Serial_LCD Library Suite
-// Arduino 0023 chipKIT MPIDE 0023 Library
-// ----------------------------------
-// Example
-//
-// Apr 25, 2012 
-// See README.txt
-//
-// © Rei VILO, 2010-2012
-//   CC = BY NC SA
-//   http://embeddedcomputing.weebly.com/serial-lcd.html
-//   http://github.com/rei-vilo/Serial_LCD
-//
-// For 
-//   4D Systems Goldelox and Picaso SGC Command Set
-//   http://www.4dsystems.com.au/
-//
-//
+///
+/// @file 	serial_software_main.pde
+/// @brief	Example
+/// @details 	
+/// @n @a 	Example for Serial_LCD Library Suite
+/// @n @a	for 4D Systems uLCD-uLED-uVGA Serial_LCD Library Suite
+/// @n 		on Arduino 0023 and 1.0, chipKIT MPIDE 0023, Wiring 1.0
+///
+/// @a 		Developed with [embedXcode](http://embedXcode.weebly.com)
+/// 
+/// @author 	Rei VILO
+/// @author 	http://embeddedcomputing.weebly.com
+/// @date	Jul 12, 2012
+/// @version	release 132
+/// @n
+/// @copyright 	© Rei VILO, 2010-2012
+/// @copyright 	CC = BY NC SA
+/// @n		http://embeddedcomputing.weebly.com/serial-lcd.html
+/// @n		http://github.com/rei-vilo/Serial_LCD
+///
+/// @see 	4D Systems Goldelox and Picaso SGC Command Set
+/// @n		http://www.4dsystems.com.au/
+///
+
 #include "Serial_LCD.h"
 #include "proxySerial.h"
 #include "GUI.h"
 
 // test release
-#if GUI_RELEASE < 109
-#error required GUI_RELEASE 109
+#if SERIAL_LCD_RELEASE < 132
+#error required SERIAL_LCD_RELEASE 132
 #endif
 
 // === Serial port choice
 // --- SoftwareSerial Case - Arduino only
-#include "NewSoftSerial.h"
-NewSoftSerial myNSS(2, 3);
-ProxySerial mySerial(&myNSS);
-//
-// --- HardwareSerial Case - Arduino + chipKIT
-//ProxySerial mySerial(&Serial1);
-// 
-// --- i2cSerial Case - Arduino + chipKIT
-//#include "Wire.h"
-//#include "I2C_Serial.h"
-//I2C_Serial myI2C;
-//ProxySerial mySerial(&myI2C);
-//
-// ===
+#if defined(ARDUINO) && (ARDUINO>=100) // for Arduino 1.0
+#include "SoftwareSerial.h"
+SoftwareSerial mySerial(2, 3);
+#else
+#include "NewSoftSerial.h" // for Arduino 23
+NewSoftSerial mySerial(2, 3);
+#endif
 
-
-Serial_LCD myLCD( &mySerial); 
+ProxySerial myPort(&mySerial); // hardware abstraction layer
+Serial_LCD myLCD(&myPort); // LCD
 
 uint16_t x, y;
 uint32_t l;
@@ -59,7 +57,7 @@ void setup() {
 
   //  // === Serial port initialisation
   //  // --- SoftwareSerial Case - Arduino only
-  myNSS.begin(9600);
+  mySerial.begin(9600);
   Serial.print("SoftwareSerial\t");
   Serial.print("\n");
   //  //
@@ -83,7 +81,7 @@ void setup() {
 
   //  // === Serail port speed up
   //  // --- SoftwareSerial Case - Arduino only
-  myNSS.begin(38400);
+  mySerial.begin(38400);
   //  //
   //  // --- HardwareSerial Case - Arduino + chipKIT
   //  Serial1.begin(38400);
@@ -163,6 +161,7 @@ void loop() {
   myLCD.gText( 250, 225, ftoa(millis()-l, 0, 6));
   l=millis();
 }
+
 
 
 

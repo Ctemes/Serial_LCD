@@ -1,63 +1,67 @@
-// 
-// 4D Systems μLCD-μLED-μVGA Serial_LCD Library Suite
-// Arduino 0023 chipKIT MPIDE 0023 Wiring 1.0
-// ----------------------------------
-//
-//  Energy.h 
-//  Library header
-//  ----------------------------------
-//  Developed with embedXcode
-//
-// May 01, 2012 release 103
-// See README.txt
-//
-// © Rei VILO, 2010-2012
-//   CC = BY NC SA
-//   http://embeddedcomputing.weebly.com/serial-lcd.html
-//   http://github.com/rei-vilo/Serial_LCD
-//
-// For 
-//   4D Systems Goldelox and Picaso SGC Command Set
-//   http://www.4dsystems.com.au/
-//
-//
+///
+/// @file	Energy.h 
+/// @brief	Power saving based on idle time
+/// @details	Energy switches backlight off when inactivity period is reach to save energy
+/// @n
+/// @n @a	Member of Serial_LCD Library Suite
+/// @n @a	for 4D Systems uLCD-uLED-uVGA screens
+/// @n @a	on Arduino 0023 and 1.0, chipKIT MPIDE 0023, Wiring 1.0
+///
+/// @a		Developed with [embedXcode](http://embedXcode.weebly.com)
+/// @n
+/// @author	Rei VILO
+/// @author	http://embeddedcomputing.weebly.com
+/// @date	Jun 14, 2012
+/// @version	release 104
+/// @n
+/// @copyright	© Rei VILO, 2010-2012
+/// @copyright	CC = BY NC SA
+/// @n		http://embeddedcomputing.weebly.com/serial-lcd.html
+/// @n		http://github.com/rei-vilo/Serial_LCD
+///
+/// @see	4D Systems Goldelox and Picaso SGC Command Set
+/// @n		http://www.4dsystems.com.au/
+///
 
-#define ENERGY_RELEASE 103
+
+#define ENERGY_RELEASE 104
 
 #ifndef Energy_h
 #define Energy_h
 
-// Core library
-#if defined (__AVR_ATmega328P__) || defined (__AVR_ATmega2560__) // Arduino specific
-#include "WProgram.h" // — for Arduino 0023
-                      // #include  "Arduino.h" // — for Arduino 1.0
+// Core library - MCU-based
+#if defined(__AVR_ATmega328P__) || defined(__AVR_ATmega2560__) // Arduino specific
+#if (ARDUINO>=100)
+#include "arduino.h" // for Arduino 1.0
+#else
+#include "WProgram.h" // for Arduino 23
+#endif
 #elif defined(__32MX320F128H__) || defined(__32MX795F512L__) // chipKIT specific 
 #include "WProgram.h"
 #elif defined(__AVR_ATmega644P__) // Wiring specific
 #include "Wiring.h"
-#elif defined(__MSP430G2452__) || defined(__MSP430G2553__) || defined(__MSP430G2231__) // LaunchPad specific
-#include "Energia.h"
+#else
+#error Board not supported.
 #endif
 
 // Other libraries
 #include "Serial_LCD.h"
 
-// Test release
-#if SERIAL_LCD_RELEASE < 128
-#error required SERIAL_LCD_RELEASE 128
+#if SERIAL_LCD_RELEASE < 131
+#error required SERIAL_LCD_RELEASE 131
 #endif
 
 class Energy {
 public:
-    Energy();
-    void begin(Serial_LCD * lcd0, uint32_t seconds=3);
-    void check(boolean &b);
-    
+  Energy();
+  void begin(Serial_LCD * lcd0, uint32_t seconds=3);
+  void check(boolean flag);
+  
 private:
-    Serial_LCD * _pscreen;
-    uint32_t _ms;
-    uint32_t _chrono;
-    boolean _state;
+  Serial_LCD * _pscreen;
+  uint32_t _ms;
+  uint32_t _chrono;
+  boolean _state;
 };
 
 

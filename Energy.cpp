@@ -1,6 +1,6 @@
 // 
-// 4D Systems μLCD-μLED-μVGA Serial_LCD Library Suite
-// Arduino 0023 chipKIT MPIDE 0023 Wiring 1.0
+// 4D Systems uLCD-uLED-uVGA Serial_LCD Library Suite
+// Arduino 0023 and 1.0, chipKIT MPIDE 0023, Wiring 1.0
 // ----------------------------------
 //
 //  Energy.cpp 
@@ -8,7 +8,7 @@
 //  ----------------------------------
 //  Developed with embedXcode
 //
-// May 01, 2012 release 103
+// Jun 14, 2012 release 104
 // See README.txt
 //
 // © Rei VILO, 2010-2012
@@ -22,16 +22,19 @@
 //
 //
 
-// Core library
-#if defined (__AVR_ATmega328P__) || defined (__AVR_ATmega2560__) // Arduino specific
-#include "WProgram.h" // — for Arduino 0023
-                      // #include  "Arduino.h" // — for Arduino 1.0
+// Core library - MCU-based
+#if defined(__AVR_ATmega328P__) || defined(__AVR_ATmega2560__) // Arduino specific
+#if (ARDUINO>=100)
+#include "arduino.h" // for Arduino 1.0
+#else
+#include "WProgram.h" // for Arduino 23
+#endif
 #elif defined(__32MX320F128H__) || defined(__32MX795F512L__) // chipKIT specific 
 #include "WProgram.h"
 #elif defined(__AVR_ATmega644P__) // Wiring specific
 #include "Wiring.h"
-#elif defined(__MSP430G2452__) || defined(__MSP430G2553__) || defined(__MSP430G2231__) // LaunchPad specific
-#include "Energia.h"
+#else
+#error Board not supported.
 #endif
 
 // Library header
@@ -42,22 +45,21 @@ Energy::Energy() {
 }
 
 void Energy::begin(Serial_LCD * lcd0, uint32_t seconds) {
-	_pscreen = lcd0;
-    _ms = (uint32_t)seconds*1000;
-    _chrono = millis();
-    _state = true; // backlight on
+  _pscreen = lcd0;
+  _ms = (uint32_t)seconds*1000;
+  _chrono = millis();
+  _state = true; // backlight on
 }
 
-void Energy::check(boolean &b) {
-    if ( b ) {
-        _chrono = millis();
-        if ( _state==false ) {
-            _state = true;
-            _pscreen->setBacklight(true); 
-            b = 0;
-        }
-    } else if ( (_state==true) & (millis()>_chrono+_ms) ) {
-        _state = false;
-        _pscreen->setBacklight(false);   
+void Energy::check(boolean flag) {
+  if ( flag ) {
+    _chrono = millis();
+    if ( _state==false ) {
+      _state = true;
+      _pscreen->setBacklight(true); 
     }
+  } else if ( (_state==true) & (millis()>_chrono+_ms) ) {
+    _state = false;
+    _pscreen->setBacklight(false);   
+  }
 }

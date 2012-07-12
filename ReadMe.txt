@@ -1,5 +1,5 @@
 
-	4D Systems μLCD-μLED-μVGA Serial_LCD Library Suite
+	4D Systems uLCD-uLED-uVGA Serial_LCD Library Suite
 	Arduino & chipKIT Library
 
 	© Rei VILO, 2010-2012
@@ -49,6 +49,9 @@ Apr 24, 2012 release 126	stability enhancement for Gallery
 Apr 25, 2012 release 127	4D Systems firmware 21
 May 01, 2012 release 128	support for Wiring 1.0
 May 23, 2012 release 129	graphic controller type based on screen size
+Jun 04, 2012 release 130	RAW image bug fixed
+Jun 14, 2012 release 131	unified release for Arduino 23 & 1.0, chipKIT and Wiring
+Jul 08, 2012 release 132	more compact library
 
 
 proxySerial
@@ -64,6 +67,8 @@ Feb 12, 2012 release 106a	__AVR_ATmega328P__ __AVR_ATmega2560__ added
 Mar 19, 2012 release 207	Arduino 1.0 compatible
 Apr 25, 2012 release 107	4D Systems firmware 21
 May 01, 2012 release 108	support for Wiring 1.0
+Jun 14, 2012 release 109	unified release for Arduino 23 & 1.0, chipKIT and Wiring
+Jul 08, 2012 release 110	more compact library
 
 
 button / GUI
@@ -82,6 +87,9 @@ Mar 19, 2012 release 209	Arduino 1.0 compatible
 Apr 22, 2012 release 109	slider added
 Apr 28, 2012 release 110	better menu
 May 01, 2012 release 111	support for Wiring 1.0
+Jun 04, 2012 release 112	RAW image bug fixed
+Jun 14, 2012 release 113	unified release for Arduino 23 & 1.0, chipKIT and Wiring
+Jul 05, 2012 release 114	more compact library
 
 
 Graphics
@@ -97,6 +105,9 @@ Feb 14, 2012 release 107	gauge graphic
 Feb 16, 2012 release 108	yaw, pitch, roll graphics
 Mar 19, 2012 release 209	Arduino 1.0 compatible
 May 01, 2012 release 109	support for Wiring 1.0
+Jun 14, 2012 release 110	unified release for Arduino 23 & 1.0, chipKIT and Wiring
+Jul 06, 2012 release 111	more compact library
+Jul 09, 2012 release 112	graphic for multiple values
 
 
 Gallery
@@ -104,12 +115,14 @@ Mar 13, 2012 release 101	initial release
 Mar 19, 2012 release 202	Arduino 1.0 compatible
 Apr 24, 2012 release 103	stability enhancement
 May 01, 2012 release 104	support for Wiring 1.0
+Jun 14, 2012 release 105	unified release for Arduino 23 & 1.0, chipKIT and Wiring
 
 
 Energy
 Apr 28, 2012 release 101	initial release
 Apr 29, 2012 release 102	wake-up clears touch flag
 May 01, 2012 release 103	support for Wiring 1.0
+Jun 14, 2012 release 104	unified release for Arduino 23 & 1.0, chipKIT and Wiring
 
 
 Full documentation with tutorial at
@@ -157,5 +170,6 @@ Jan 28, 2012 release 103	new index
 Mar 19, 2012 release 204	Arduino 1.0 compatible
 Apr 19, 2012 release 104	I/O functions and reset
 May 01, 2012 release 105	support for Wiring 1.0
+Jun 04, 2012 release 106	unified release for Arduino 23, Arduino 1.0, chipKIT MPIDE and Wiring
 
 

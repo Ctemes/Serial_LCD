@@ -1,22 +1,26 @@
-// 
-// μLCD-32PT(SGC) 3.2” Serial LCD Display Module
-// Arduino & chipKIT Library
-//
-// Example - see README.txt
-// © Rei VILO, 2010-2012
-// CC = BY NC SA
-// http://sites.google.com/site/vilorei/
-// http://github.com/rei-vilo/Serial_LCD
-//
-//
-// Based on
-// 4D LABS PICASO-SGC Command Set
-// Software Interface Specification
-// Document Date: 1st March 2011 
-// Document Revision: 6.0
-// http://www.4d-Labs.com
-//
-//
+///
+/// @file 	gauge_main.pde
+/// @brief	Example
+/// @details 	
+/// @n @a 	Example for Serial_LCD Library Suite
+/// @n @a	for 4D Systems uLCD-uLED-uVGA Serial_LCD Library Suite
+/// @n 		on Arduino 0023 and 1.0, chipKIT MPIDE 0023, Wiring 1.0
+///
+/// @a 		Developed with [embedXcode](http://embedXcode.weebly.com)
+/// 
+/// @author 	Rei VILO
+/// @author 	http://embeddedcomputing.weebly.com
+/// @date	Jul 12, 2012
+/// @version	release 132
+/// @n
+/// @copyright 	© Rei VILO, 2010-2012
+/// @copyright 	CC = BY NC SA
+/// @n		http://embeddedcomputing.weebly.com/serial-lcd.html
+/// @n		http://github.com/rei-vilo/Serial_LCD
+///
+/// @see 	4D Systems Goldelox and Picaso SGC Command Set
+/// @n		http://www.4dsystems.com.au/
+///
 
 
 #include "Serial_LCD.h"
@@ -25,43 +29,44 @@
 #include "Graphics.h"
 
 // test release
-#if GUI_RELEASE < 108
-#error required GUI_RELEASE 108
+#if GRAPHICS_RELEASE < 112
+#error required GRAPHICS_RELEASE 112
 #endif
 
-#if GRAPHICS_RELEASE < 107
-#error required GRAPHICS_RELEASE 107
+// test release
+#if SERIAL_LCD_RELEASE < 132
+#error required SERIAL_LCD_RELEASE 132
 #endif
-
-// === Serial port choice ===
 
 // uncomment for I2C serial interface
 //#define __I2C_Serial__
 
-// --- I2C Case -
-#if defined(__I2C_Serial__)
-#include "Wire.h"
-#include "I2C_Serial.h"
-I2C_Serial mySerial(0);
-ProxySerial myPort(&mySerial);
+// === Serial port choice ===
+#if defined(__I2C_Serial__) // I2C serial
+  #include "Wire.h"
+  #include "I2C_Serial.h"
+  I2C_Serial mySerial(0);
 
-// --- Arduino SoftwareSerial Case - Arduino only
-#elif defined(__AVR__)  || defined (__AVR_ATmega328P__) | defined (__AVR_ATmega328P__)
-#include "NewSoftSerial.h"
-NewSoftSerial mySerial(2, 3); // RX, TX
-ProxySerial myPort(&mySerial);
+#elif defined (__AVR_ATmega328P__) // software serial
+  #if defined(ARDUINO) && (ARDUINO>=100) // for Arduino 1.0
+    #include "SoftwareSerial.h"
+    SoftwareSerial mySerial(2, 3);
+  #else
+    #include "NewSoftSerial.h" // for Arduino 23
+    NewSoftSerial mySerial(2, 3);
+  #endif
 
-// --- chipKIT HardwareSerial Case - chipKIT
-#elif defined(__PIC32MX__) 
-ProxySerial myPort(&Serial1);
+#elif defined(__32MX320F128H__) || defined(__32MX795F512L__) || defined (__AVR_ATmega2560__) || defined(__AVR_ATmega644P__) // hardware serial Serial1
+  #define mySerial Serial1
 
-#else
-#error Non defined board
-#endif 
-
+#else // error
+  #error Platform not defined
+#endif
 // === End of Serial port choice ===
 
-Serial_LCD myLCD( &myPort); 
+ProxySerial myPort(&mySerial); // hardware abstraction layer
+Serial_LCD myLCD(&myPort); // LCD
+
 
 uint16_t x, y;
 uint32_t l;
@@ -115,7 +120,7 @@ void setup() {
   myLCD.setFontSolid(true);
 
   myLCD.setFont(0);
-  myLCD.gText( 0, 225, 0xffff, myLCD.WhoAmI());
+  myLCD.gText( 0, 225, myLCD.WhoAmI());
   myLCD.setTouch(true);
 
   l=millis();
@@ -151,13 +156,13 @@ void loop() {
 
 //  myLCD.setFont(3);
 //  myLCD.setFontSolid(true);
-//  myLCD.gText( 160, 180, 0xffff, ftoa(v, 2, 10 ));
+//  myLCD.gText( 160, 180, ftoa(v, 2, 10 ));
 
   if (myLCD.getTouchActivity()>0) {
     myLCD.getTouchXY(x, y);
     myLCD.setFont(0);
-    myLCD.gText(200, 0, 0xffff, ftoa(x, 0, 5)); 
-    myLCD.gText(200, 15, 0xffff, ftoa(y, 0, 5)); 
+    myLCD.gText(200, 0, ftoa(x, 0, 5)); 
+    myLCD.gText(200, 15, ftoa(y, 0, 5)); 
 
     // quit
     if (b7.check()) {
@@ -168,7 +173,7 @@ void loop() {
 
   myLCD.setFont(0);
   myLCD.setFontSolid(true);
-  myLCD.gText( 250, 225, 0xffff, ttoa(millis()-l, 0, 6));
+  myLCD.gText( 250, 225, ttoa(millis()-l, 0, 6));
   l=millis();
 
   //  delay(100);

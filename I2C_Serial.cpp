@@ -11,36 +11,58 @@
 //   http://github.com/rei-vilo/Serial_LCD
 //
 //
+// Core library - MCU-based
+#if defined (__AVR_ATmega328P__) || defined (__AVR_ATmega2560__) // Arduino specific
+  #if defined(ARDUINO) && (ARDUINO >= 100)
+  #include "Arduino.h" // for Arduino 1.0
+  #else
+  #include "WProgram.h" // for Arduino 23
+  #endif
+#elif defined(__32MX320F128H__) || defined(__32MX795F512L__) // chipKIT specific 
+#include "WProgram.h"
+#elif defined(__AVR_ATmega644P__) // Wiring specific
+#include "Wiring.h"
+#elif defined(__MSP430G2452__) || defined(__MSP430G2553__) || defined(__MSP430G2231__) // LaunchPad specific
+#include "Energia.h"
+#elif defined(MCU_STM32F103RB) || defined(MCU_STM32F103ZE) || defined(MCU_STM32F103CB) || defined(MCU_STM32F103RE) // Maple specific
+#include "WProgram.h"	
+#pragma monmessage
+#else // error
+#error Platform not defined
+#endif
 
-//#include "WProgram.h"
 #include "Wire.h"
 #include "I2C_Serial.h"
-#include "Stream.h"
+#include "Print.h"
 
 // ---------------- Functions
 
-
-void wire_send(uint8_t ui) {
-#if defined(__AVR_ATmega644P__) // Wiring specific
-    Wire.write(ui);
+// Write or read according to framework
+static void _send(uint8_t ui) {
+#if defined(WIRING) // Wiring specific
+  Wire.write(ui);
+#elif defined(ARDUINO) && (ARDUINO >= 100)
+  Wire.write(ui);
 #else
-    Wire.send(ui);
+  Wire.send(ui);
 #endif
 }
 
-uint8_t wire_receive() {
-#if defined(__AVR_ATmega644P__) // Wiring specific
-    return Wire.read();
+static uint8_t _receive() {
+#if defined(WIRING) // Wiring specific
+  return Wire.read();
+#elif defined(ARDUINO) && (ARDUINO >= 100)
+  return Wire.read();
 #else
-    return Wire.receive();
+  return Wire.receive();
 #endif
 }
 
 // Writes value to address register on device
 static void _writeTo(uint8_t device, uint8_t address, uint8_t value) {
     Wire.beginTransmission(device); // start transmission to device 
-    wire_send(address);             // send register address
-    wire_send(value);               // send value to write
+    _send(address);             // send register address
+    _send(value);               // send value to write
     Wire.endTransmission();         // end transmission
 }
 
@@ -48,7 +70,7 @@ static void _writeTo(uint8_t device, uint8_t address, uint8_t value) {
 // Reads number uint8_ts starting from address register on device uint8_to buffer array
 static void _readFrom(uint8_t device, uint8_t address, uint8_t number, uint8_t buffer[]) {
     Wire.beginTransmission(device); // start transmission to device 
-    wire_send(address);             // sends address to read from
+    _send(address);             // sends address to read from
     Wire.endTransmission();         // end transmission
     
     Wire.beginTransmission(device);    // start transmission to device
@@ -57,7 +79,7 @@ static void _readFrom(uint8_t device, uint8_t address, uint8_t number, uint8_t b
     uint8_t i = 0;
     while(Wire.available())       // device may send less than requested (abnormal)
     { 
-        buffer[i] = wire_receive(); // receive a uint8_t
+        buffer[i] = _receive(); // receive a uint8_t
         i++;
     }
     Wire.endTransmission();       //end transmission
@@ -67,29 +89,30 @@ static void _readFrom(uint8_t device, uint8_t address, uint8_t number, uint8_t b
 
 static uint8_t _readByteFrom(int8_t device, uint8_t address) {
     Wire.beginTransmission(device); // start transmission to device  
-    wire_send(address);             // send address to read from
+    _send(address);             // send address to read from
     Wire.endTransmission();         // end transmission
     
     Wire.beginTransmission(device); // start transmission to device
     Wire.requestFrom(device, 1);    // request 1 uint8_t from device
     
     while(!Wire.available());      // device may send less than requested (abnormal)
-    uint8_t b = wire_receive();    // receive a uint8_t
+    uint8_t b = _receive();    // receive a uint8_t
     Wire.endTransmission();        // end transmission
     return b;
 }
 
 // ---------------- Class
 
-I2C_Serial::I2C_Serial(uint8_t n) // constructor
+I2C_Serial::I2C_Serial(uint8_t number) // constructor
 {
     _address=0x48;                  // 0x90 a0/a1=+/+ : default I2C serial port
-    if (n==1) _address=0x49;        // 0x92 a0/a1=+/- : secondary I2C serial port
-    else if (n==2) _address=0x4c;   // 0x98 a0/a1=-/+ : RFID ID-2 sensor board
-    else if (n==12) _address=0x4d;  // 0x9a a0/a1=-/- : RFID ID-12 sensor board
+    if (number==1) _address=0x49;        // 0x92 a0/a1=+/- : secondary I2C serial port
+    else if (number==2) _address=0x4c;   // 0x98 a0/a1=-/+ : RFID ID-2 sensor board
+    else if (number==12) _address=0x4d;  // 0x9a a0/a1=-/- : RFID ID-12 sensor board
 }
 
-String I2C_Serial::WhoAmI() {
+String I2C_Serial::WhoAmI() 
+{
     String s="";
     if (_address < 0x10) s="0";
     s = s + String(_address, 0x10) +"h ";
@@ -97,18 +120,18 @@ String I2C_Serial::WhoAmI() {
     return s;
 }
 
-void I2C_Serial::begin(long b) {
+void I2C_Serial::begin(long baud) 
+{  
     _writeTo(_address, 0x0e << 3, 0x01 << 3); // software reset
     
     // See datasheet section 7.8 for configuring the
     // "Programmable baud rate generator"
-    uint16_t divisor = (uint16_t)(14745600/b/16);
+    uint16_t divisor = (uint16_t)(14745600/baud/16);
     
     _writeTo(_address, 0x03 << 3, 0b10000000); // Line Control Register - divisor latch enable
     _writeTo(_address, 0x00 << 3, lowByte(divisor));  // Divisor Latch LSB
     _writeTo(_address, 0x01 << 3, highByte(divisor)); // Divisor Latch MSB
-    
-    
+
     //  _writeTo(_address, 0x03 << 3, 0xbf); // Line Control Register - access EFR register
     //  _writeTo(_address, 0x02 << 3, 0x00); // enable enhanced registers
     _writeTo(_address, 0x03 << 3, 0b00000011); // Line Control Register - 8 data bit, 1 stop bits, no parity
@@ -118,7 +141,15 @@ void I2C_Serial::begin(long b) {
 
 
 // write and read functions
-void I2C_Serial::write(uint8_t byte) {
+#if defined(ARDUINO) && (ARDUINO >= 100)
+size_t I2C_Serial::write(uint8_t byte) 
+{
+    _writeTo(_address, 0x00 << 3, byte);
+	return 1;    
+}
+#else
+void I2C_Serial::write(uint8_t byte) 
+{
     //  //                                   start I2C    
     //  Wire.beginTransmission(_address); // talk to device at _address
     //  Wire.send(0x00);                   // command 
@@ -126,9 +157,11 @@ void I2C_Serial::write(uint8_t byte) {
     //  Wire.endTransmission();           // end I2C  
     _writeTo(_address, 0x00 << 3, byte);
 }
+#endif
 
 
-int I2C_Serial::read() {
+int I2C_Serial::read() 
+{
     //  Wire.beginTransmission(_address); //start transmission to ACC 
     //  Wire.send(0x00);                   // command 
     //  Wire.endTransmission(); //end transmission
@@ -145,7 +178,8 @@ int I2C_Serial::read() {
 
 
 // tests functions
-boolean I2C_Serial::test() {
+boolean I2C_Serial::test() 
+{
     char a = (char)random(0x00, 0xff);
     _writeTo(_address, 0x07 << 3, a); // Scratch Pad Register
     delay(3);
@@ -153,16 +187,18 @@ boolean I2C_Serial::test() {
     return (a==b);
 }
 
-void I2C_Serial::loopback(boolean b) {
-    byte c=_readByteFrom(_address, 0x04 << 3); // Modem Control Register
-    bitWrite(c, 4, b); 
-    _writeTo(_address, 0x04 << 3, c); // Modem Control Register
+void I2C_Serial::loopback(boolean flag) 
+{
+    uint8_t b =_readByteFrom(_address, 0x04 << 3); // Modem Control Register
+    bitWrite(b, 4, flag); 
+    _writeTo(_address, 0x04 << 3, b); // Modem Control Register
 }
 
 // I/O functions
 // if pin=0..7, mode or val or result with 0=INPUT or 1=OUPUT
 // if pin=ALL, mode or val or result with bit map
-void I2C_Serial::pinMode(uint8_t pin, uint8_t mode) {
+void I2C_Serial::pinMode(uint8_t pin, uint8_t mode) 
+{
     if ( pin==ALL ) {
         _writeTo(_address, 0x0a << 3, mode);  
     } else {
@@ -170,59 +206,81 @@ void I2C_Serial::pinMode(uint8_t pin, uint8_t mode) {
         bitWrite(b, pin, mode);
         _writeTo(_address, 0x0a << 3, b);
     }
+
+//  uint8_t b=_readByteFrom(_address, 0x0a << 3);
+//  Serial.print("in-out ");	  
+//  Serial.println(b, BIN);	  
 }
-void I2C_Serial::digitalWrite(uint8_t pin, uint8_t val) {
+
+void I2C_Serial::digitalWrite(uint8_t pin, uint8_t value) 
+{
     if ( pin==ALL ) {
-        _writeTo(_address, 0x0b << 3, val);
+        _writeTo(_address, 0x0b << 3, value);
     } else {
         uint8_t b=_readByteFrom(_address, 0x0b << 3);
-        bitWrite(b, pin, val);
+        bitWrite(b, pin, value);
         _writeTo(_address, 0x0b << 3, b);
     }
-}
-int I2C_Serial::digitalRead(uint8_t pin) {
+}  
+
+int I2C_Serial::digitalRead(uint8_t pin) 
+{
     if ( pin==ALL ) {
         return _readByteFrom(_address, 0x0b << 3);
     } else {
         return bitRead(_readByteFrom(_address, 0x0b << 3), pin);        
     }    
 }
-void I2C_Serial::reset(uint8_t pin, uint8_t val, uint8_t ms) {
+
+void I2C_Serial::reset(uint8_t pin, uint8_t value, uint8_t ms) 
+{
     if ( pin==ALL ) {
         _writeTo(_address, 0x0a << 3, 0xff*OUTPUT);  
-        _writeTo(_address, 0x0b << 3, 0xff*val);
+        _writeTo(_address, 0x0b << 3, 0xff*value);
         delay(ms);
-        _writeTo(_address, 0x0b << 3, 0xff*(~val));        
+        _writeTo(_address, 0x0b << 3, 0xff*(~value));        
     } else {
         uint8_t b=_readByteFrom(_address, 0x0a << 3);
         bitWrite(b, pin, OUTPUT);
         _writeTo(_address, 0x0a << 3, b);
         
         b=_readByteFrom(_address, 0x0b << 3);
-        bitWrite(b, pin, val);
+        bitWrite(b, pin, value);
         _writeTo(_address, 0x0b << 3, b);
+        
+//        Serial.print(" BIN ");
+//        Serial.print(b, BIN);
+        
         delay(ms);
-        bitWrite(b, pin, ~val);
+        bitWrite(b, pin, ~value);
         _writeTo(_address, 0x0b << 3, b);
+        
+//        Serial.print(" BIN ");
+//        Serial.print(b, BIN);
+        
     }
 }
 
 
 // management functions
-int I2C_Serial::available() {
+int I2C_Serial::available() 
+{
     return _readByteFrom(_address, 0x09 << 3); // Receiver FIFO Level register
 }
 
-int I2C_Serial::peek() {
+int I2C_Serial::peek() 
+{
     if (available()==0) return -1;
     else return 1; // ?
 }
 
-uint8_t I2C_Serial::free() {
+uint8_t I2C_Serial::free() 
+{
     return _readByteFrom(_address, 0x08 << 3); // Transmitter FIFO Level register
 }
 
-void I2C_Serial::flush() {
+void I2C_Serial::flush() 
+{
     _writeTo(_address, 0x02 << 3, 0x06); // reset TXFIFO, reset RXFIFO, non FIFO mode
     _writeTo(_address, 0x02 << 3, 0x01); // enable FIFO mode   
 }

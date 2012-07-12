@@ -1,22 +1,26 @@
-// 
-// μLCD-32PT(SGC) 3.2” Serial LCD Display Module
-// Arduino & chipKIT Library
-//
-// Example - see README.txt
-// © Rei VILO, 2010-2012
-// CC = BY NC SA
-// http://sites.google.com/site/vilorei/
-// http://github.com/rei-vilo/Serial_LCD
-//
-//
-// Based on
-// 4D LABS PICASO-SGC Command Set
-// Software Interface Specification
-// Document Date: 1st March 2011 
-// Document Revision: 6.0
-// http://www.4d-Labs.com
-//
-//
+///
+/// @file 	Life_Game_Colour.pde
+/// @brief	Example
+/// @details 	
+/// @n @a 	Example for Serial_LCD Library Suite
+/// @n @a	for 4D Systems uLCD-uLED-uVGA Serial_LCD Library Suite
+/// @n 		on Arduino 0023 and 1.0, chipKIT MPIDE 0023, Wiring 1.0
+///
+/// @a 		Developed with [embedXcode](http://embedXcode.weebly.com)
+/// 
+/// @author 	Rei VILO
+/// @author 	http://embeddedcomputing.weebly.com
+/// @date	Jul 12, 2012
+/// @version	release 132
+/// @n
+/// @copyright 	© Rei VILO, 2010-2012
+/// @copyright 	CC = BY NC SA
+/// @n		http://embeddedcomputing.weebly.com/serial-lcd.html
+/// @n		http://github.com/rei-vilo/Serial_LCD
+///
+/// @see 	4D Systems Goldelox and Picaso SGC Command Set
+/// @n		http://www.4dsystems.com.au/
+///
 
 
 #include "proxySerial.h"
@@ -41,7 +45,8 @@
 #define NMASK 0x08
 #define AGEMASK 0x07
 
-ProxySerial myPort(&Serial1); 
+#define mySerial Serial1
+ProxySerial myPort(&mySerial); 
 Serial_LCD myLCD(&myPort); 
 
 uint8_t _screen[2][ROWS][COLS]; 
@@ -79,16 +84,16 @@ void setup() {
   //  Serial.begin(19800); 
   //  Serial.print("\n\n\n***\n"); 
 
-  Serial1.begin(9600); 
+  mySerial.begin(9600); 
   myLCD.begin(); 
 
-  myLCD.setSpeed(115200); 
-  Serial1.begin(115200); 
+//  myLCD.setSpeed(115200); 
+//  Serial1.begin(115200); 
 
   myLCD.setOrientation(0x03); 
-
   myLCD.setPenSolid(true); 
   myLCD.setTouch(true); 
+
 
   // 0-7 dying: cold colours
   // from green to blue to black
@@ -115,19 +120,19 @@ void setup() {
 
   myLCD.setFontSolid(true); 
   myLCD.setFont(3); 
-  myLCD.gText(40, 20, 0xffff, "Life Game"); 
+  myLCD.gText(40, 20, "Life Game"); 
 
   myLCD.setFont(2); 
-  myLCD.gText(40+16*8, 80, 0xffff, "Death"); 
+  myLCD.gText(40+16*8, 80, "Death"); 
   for (uint8_t i=0; i<8; i++) 
     myLCD.rectangle(128+40+16*i, 60, 128+40+16*i+15, 60+16, clut[i]); 
 
-  myLCD.gText(40+16*0, 80, 0xffff, "Life"); 
+  myLCD.gText(40+16*0, 80, "Life"); 
   for (uint8_t i=8; i<16; i++) 
     myLCD.rectangle(40+16*i-128, 60, 40+16*i+15-128, 60+16, clut[i]); 
 
   myLCD.setFont(0); 
-  myLCD.gText(40, 120, 0xffff, "Touch to stop the game."); 
+  myLCD.gText(40, 120, "Touch to stop the game."); 
 
   delay(4000); 
 
@@ -287,11 +292,11 @@ void loop() {
 
   // generation
   myLCD.setFont(3); 
-  myLCD.gText(210, 235-myLCD.fontY(), 0xffff, ftoa(generation, 0, 5)); 
+  myLCD.gText(210, 235-myLCD.fontY(), ftoa(generation, 0, 5)); 
 
   // calculation time in seconds
   myLCD.setFont(1); 
-  myLCD.gText(280, 235-myLCD.fontY(), 0xffff, ftoa((millis()-t)/1000.0, 1, 4)); 
+  myLCD.gText(280, 235-myLCD.fontY(), ftoa((millis()-t)/1000.0, 1, 4)); 
   t=millis(); 
 
   // touch to stop

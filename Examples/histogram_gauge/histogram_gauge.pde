@@ -1,22 +1,26 @@
-// 
-// μLCD-32PT(SGC) 3.2” Serial LCD Display Module
-// Arduino & chipKIT Library
-//
-// histogram_gauge Example - see README.txt
-// © Rei VILO, 2010-2012
-// CC = BY NC SA
-// http://sites.google.com/site/vilorei/
-// http://github.com/rei-vilo/Serial_LCD
-//
-//
-// Based on
-// 4D LABS PICASO-SGC Command Set
-// Software Interface Specification
-// Document Date: 1st March 2011 
-// Document Revision: 6.0
-// http://www.4d-Labs.com
-//
-//
+///
+/// @file 	histogram_gauge_main.pde
+/// @brief	Example
+/// @details 	
+/// @n @a 	Example for Serial_LCD Library Suite
+/// @n @a	for 4D Systems uLCD-uLED-uVGA Serial_LCD Library Suite
+/// @n 		on Arduino 0023 and 1.0, chipKIT MPIDE 0023, Wiring 1.0
+///
+/// @a 		Developed with [embedXcode](http://embedXcode.weebly.com)
+/// 
+/// @author 	Rei VILO
+/// @author 	http://embeddedcomputing.weebly.com
+/// @date	Jul 12, 2012
+/// @version	release 132
+/// @n
+/// @copyright 	© Rei VILO, 2010-2012
+/// @copyright 	CC = BY NC SA
+/// @n		http://embeddedcomputing.weebly.com/serial-lcd.html
+/// @n		http://github.com/rei-vilo/Serial_LCD
+///
+/// @see 	4D Systems Goldelox and Picaso SGC Command Set
+/// @n		http://www.4dsystems.com.au/
+///
 
 
 #include "Serial_LCD.h"
@@ -25,45 +29,43 @@
 #include "Graphics.h"
 
 // test release
-#if GUI_RELEASE < 108
-#error required GUI_RELEASE 108
+#if GRAPHICS_RELEASE < 112
+#error required GRAPHICS_RELEASE 112
 #endif
 
-#if GRAPHICS_RELEASE < 108
-#error required GRAPHICS_RELEASE 108
+// test release
+#if SERIAL_LCD_RELEASE < 132
+#error required SERIAL_LCD_RELEASE 132
 #endif
 
-// Uncomment for I2C serial
-#define __I2C__
+// uncomment for I2C serial interface
+//#define __I2C_Serial__
 
 // === Serial port choice ===
-// --- Arduino Uno - software serial
-// --- I2C serial
-#if defined (__I2C__)
-#include "Wire.h"
-#include "I2C_Serial.h"
-I2C_Serial myI2CSerial;
-ProxySerial myPort(&myI2CSerial);
+#if defined(__I2C_Serial__) // I2C serial
+  #include "Wire.h"
+  #include "I2C_Serial.h"
+  I2C_Serial mySerial(0);
 
-#elif defined (__AVR_ATmega328P__) 
-#include "NewSoftSerial.h"
-NewSoftSerial mySerial(2, 3); // RX, TX
-ProxySerial myPort(&mySerial);
+#elif defined (__AVR_ATmega328P__) // software serial
+  #if defined(ARDUINO) && (ARDUINO>=100) // for Arduino 1.0
+    #include "SoftwareSerial.h"
+    SoftwareSerial mySerial(2, 3);
+  #else
+    #include "NewSoftSerial.h" // for Arduino 23
+    NewSoftSerial mySerial(2, 3);
+  #endif
 
-// --- Arduino mega2560 - hardware serial
-#elif defined (__AVR_ATmega2560__)
-ProxySerial myPort(&Serial3);
+#elif defined(__32MX320F128H__) || defined(__32MX795F512L__) || defined (__AVR_ATmega2560__) || defined(__AVR_ATmega644P__) // hardware serial Serial1
+  #define mySerial Serial1
 
-// --- chipKIT UNO32 - hardware serial
-#elif defined (__PIC32MX__)
-ProxySerial myPort(&Serial1);
-
-#else
-#error Non defined board
+#else // error
+  #error Platform not defined
 #endif
 // === End of Serial port choice ===
 
-Serial_LCD myLCD(&myPort); 
+ProxySerial myPort(&mySerial); // hardware abstraction layer
+Serial_LCD myLCD(&myPort); // LCD
 
 
 uint16_t x, y;
@@ -84,25 +86,17 @@ void setup() {
 #if defined (__I2C__)
   Wire.begin();
   Serial.print("I2C\n");
-  myI2CSerial.begin(9600);
-  Serial.print("I2C\n");
 #elif defined (__AVR_ATmega328P__) 
   Serial.print("software\n");
-  mySerial.begin(9600);
   // --- Arduino mega2560 - hardware serial
 #elif defined (__AVR_ATmega2560__)
   Serial.print("hardware\n");
-  Serial3.begin(9600);
 #elif defined (__PIC32MX__)
   Serial.print("hardware\n");
-  Serial1.begin(9600);
 // --- I2C serial
 #endif
   // === End of Serial port initialisation ===
-
-  Serial.print("I2C test: ");
-  Serial.print(myI2CSerial.test(), DEC);
-  Serial.print("\n");
+  mySerial.begin(9600);
 
   myLCD.begin(4);
 
@@ -110,15 +104,7 @@ void setup() {
 
   // === Serial port speed change ===
   myLCD.setSpeed(38400);
-#if defined (__I2C__)
-  myI2CSerial.begin(38400);
-#elif defined (__AVR_ATmega328P__) 
   mySerial.begin(38400);
-#elif defined (__AVR_ATmega2560__)
-  Serial3.begin(38400);
-#elif defined (__PIC32MX__)
-  Serial3.begin(38400);
-#endif
   // === End of Serial port speed change ===
 
   myLCD.setOrientation(0x03);
