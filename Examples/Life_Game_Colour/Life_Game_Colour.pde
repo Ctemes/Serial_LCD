@@ -21,8 +21,8 @@
 /// @see 	4D Systems Goldelox and Picaso SGC Command Set
 /// @n		http://www.4dsystems.com.au/
 ///
-
-
+#include "Wire.h"
+#include "I2C_Serial.h"
 #include "proxySerial.h"
 #include "Serial_LCD.h"
 
@@ -45,7 +45,8 @@
 #define NMASK 0x08
 #define AGEMASK 0x07
 
-#define mySerial Serial1
+//#define mySerial Serial1
+I2C_Serial mySerial(0);
 ProxySerial myPort(&mySerial); 
 Serial_LCD myLCD(&myPort); 
 
@@ -81,14 +82,23 @@ void new_game() {
 
 
 void setup() {
-  //  Serial.begin(19800); 
-  //  Serial.print("\n\n\n***\n"); 
+  Serial.begin(9600); 
+  Serial.println("\n\n\n***"); 
 
+  Serial.print("Wire.begin...");
+  Wire.begin();
+  Serial.println("done");
+
+  Serial.print("mySerial.begin...");
   mySerial.begin(9600); 
-  myLCD.begin(); 
+  Serial.println("done");
 
-//  myLCD.setSpeed(115200); 
-//  Serial1.begin(115200); 
+  Serial.print("myLCD.begin...");
+  myLCD.begin(4); 
+  Serial.println("done");
+
+  myLCD.setSpeed(115200); 
+  Serial1.begin(115200); 
 
   myLCD.setOrientation(0x03); 
   myLCD.setPenSolid(true); 
@@ -305,6 +315,7 @@ void loop() {
     while(1); 
   }
 }  
+
 
 
 
