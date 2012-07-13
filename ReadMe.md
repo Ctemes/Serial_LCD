@@ -1,5 +1,5 @@
 # 4D Systems μLCD-μLED-μVGA Serial_LCD Library Suite
-Arduino 23 and 1.0 / chipKIT / Wiring Library
+**for Arduino 23 and 1.0, chipKIT MPIDE and Wiring**
 
 © Rei VILO, 2010-2012
 
