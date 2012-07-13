@@ -1,4 +1,3 @@
-
 # 4D Systems μLCD-μLED-μVGA Serial_LCD Library Suite
 Arduino / chipKIT / Wiring / LaunchPad Library
 
@@ -8,13 +7,17 @@ Arduino / chipKIT / Wiring / LaunchPad Library
 
 
 
-* **master** = universal for Arduino 0023 and 1.0, chipKIT MPIDE 0023, Wiring
+* **master** = unified release for Arduino 0023 and 1.0, chipKIT MPIDE 0023, Wiring
 
 
 
 ## Links
 
-[Main page](http://embeddedcomputing.weebly.com/serial-lcd.html)
-
-including full documentation, examples, tutorials, code and downloads
-
+The dedicated [[http://embeddedcomputing.weebly.com/serial-lcd.html|website]] includes 
+* documentation on [[http://embeddedcomputing.weebly.com/high-level.html|high]], [[http://embeddedcomputing.weebly.com/intermediate-level.html|intermediate]] and [[http://embeddedcomputing.weebly.com/high-level.html|low]] level libraries
+* [[http://embeddedcomputing.weebly.com/tutorials.html|tutorials]], 
+* [[http://embeddedcomputing.weebly.com/examples.html|examples]], 
+* code, 
+* [[http://embeddedcomputing.weebly.com/roadmap.html|roadmap]]
+* [[http://embeddedcomputing.weebly.com/download.html|download]] 
+* and more!
