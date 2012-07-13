@@ -13,7 +13,7 @@ Arduino / chipKIT / Wiring / LaunchPad Library
 
 ## Links
 
-The dedicated [[http://embeddedcomputing.weebly.com/serial-lcd.html|website]] includes 
+The dedicated [http://embeddedcomputing.weebly.com/serial-lcd.html](website) includes 
 * documentation on [[http://embeddedcomputing.weebly.com/high-level.html|high]], [[http://embeddedcomputing.weebly.com/intermediate-level.html|intermediate]] and [[http://embeddedcomputing.weebly.com/high-level.html|low]] level libraries
 * [[http://embeddedcomputing.weebly.com/tutorials.html|tutorials]], 
 * [[http://embeddedcomputing.weebly.com/examples.html|examples]], 
