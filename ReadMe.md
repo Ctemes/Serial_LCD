@@ -1,5 +1,5 @@
 # 4D Systems μLCD-μLED-μVGA Serial_LCD Library Suite
-Arduino / chipKIT / Wiring / LaunchPad Library
+Arduino 23 and 1.0 / chipKIT / Wiring Library
 
 © Rei VILO, 2010-2012
 
@@ -13,11 +13,11 @@ Arduino / chipKIT / Wiring / LaunchPad Library
 
 ## Links
 
-The dedicated [http://embeddedcomputing.weebly.com/serial-lcd.html](website) includes 
-* documentation on [[http://embeddedcomputing.weebly.com/high-level.html|high]], [[http://embeddedcomputing.weebly.com/intermediate-level.html|intermediate]] and [[http://embeddedcomputing.weebly.com/high-level.html|low]] level libraries
-* [[http://embeddedcomputing.weebly.com/tutorials.html|tutorials]], 
-* [[http://embeddedcomputing.weebly.com/examples.html|examples]], 
-* code, 
-* [[http://embeddedcomputing.weebly.com/roadmap.html|roadmap]]
-* [[http://embeddedcomputing.weebly.com/download.html|download]] 
-* and more!
+
+The dedicated [website](http://embeddedcomputing.weebly.com/serial-lcd.html) includes 
+* documentation on [high level](http://embeddedcomputing.weebly.com/high-level.html), [intermediate level](http://embeddedcomputing.weebly.com/intermediate-level.html) and [low level](http://embeddedcomputing.weebly.com/high-level.html) libraries
+* [tutorials](http://embeddedcomputing.weebly.com/tutorials.html), 
+* [examples](http://embeddedcomputing.weebly.com/examples.html) with code, 
+* [roadmap](http://embeddedcomputing.weebly.com/roadmap.html),
+* [download](http://embeddedcomputing.weebly.com/download.html)
+* and much more!
