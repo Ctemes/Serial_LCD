@@ -19,5 +19,6 @@ The dedicated [website](http://embeddedcomputing.weebly.com/serial-lcd.html) inc
 * [tutorials](http://embeddedcomputing.weebly.com/tutorials.html), 
 * [examples](http://embeddedcomputing.weebly.com/examples.html) with code, 
 * [roadmap](http://embeddedcomputing.weebly.com/roadmap.html),
+* [documentation](http://embeddedcomputing.weebly.com/documentation-download.html) in PDF, docset or HTML,
 * [download](http://embeddedcomputing.weebly.com/download.html)
 * and much more!
