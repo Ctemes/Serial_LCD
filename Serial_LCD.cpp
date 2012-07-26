@@ -245,7 +245,7 @@ uint8_t Serial_LCD::setOrientation(uint8_t orientation) {   // Display Control F
   _orientation = orientation;
   _port->print('Y');
   _port->print((char)0x04);
-  _port->print(orientation);  // 
+  _port->print((char)orientation);  // set orientation
   return nacAck();
 }
 

@@ -162,8 +162,6 @@ private:
   uint16_t _gridColour, _valueColour, _minColour, _maxColour;
 };
 
-#endif
-
 
 class gPanel {
 public:
@@ -241,4 +239,4 @@ private:
 };
 
 
-
+#endif

@@ -25,7 +25,7 @@
 // Core library - MCU-based
 #if defined(__AVR_ATmega328P__) || defined(__AVR_ATmega2560__) // Arduino specific
 #if (ARDUINO>=100)
-#include "arduino.h" // for Arduino 1.0
+#include "Arduino.h" // for Arduino 1.0
 #else
 #include "WProgram.h" // for Arduino 23
 #endif
