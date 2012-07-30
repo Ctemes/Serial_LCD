@@ -11,8 +11,8 @@
 /// @n
 /// @author	Rei VILO
 /// @author	http://embeddedcomputing.weebly.com
-/// @date	Jun 14, 2012
-/// @version	release 104
+/// @date	Jul 30, 2012
+/// @version	release 305
 /// @n
 /// @copyright	© Rei VILO, 2010-2012
 /// @copyright	CC = BY NC SA
@@ -24,7 +24,7 @@
 ///
 
 
-#define ENERGY_RELEASE 104
+#define ENERGY_RELEASE 305
 
 #ifndef Energy_h
 #define Energy_h
@@ -47,8 +47,8 @@
 // Other libraries
 #include "Serial_LCD.h"
 
-#if SERIAL_LCD_RELEASE < 131
-#error required SERIAL_LCD_RELEASE 131
+#if SERIAL_LCD_RELEASE < 333
+#error required SERIAL_LCD_RELEASE 333
 #endif
 
 class Energy {

@@ -2,7 +2,7 @@
 // SC16IS750 I2C slave bridge to serial
 // Arduino + chipKIT Library
 //
-// May 01, 2012 release 105
+// Jul 30, 2012 release 307
 // see README.txt
 //
 // © Rei VILO, 2010-2012

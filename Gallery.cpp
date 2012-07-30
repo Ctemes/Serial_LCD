@@ -3,7 +3,7 @@
 // Arduino 0023 and 1.0, chipKIT MPIDE 0023, Wiring 1.0
 // ----------------------------------
 //
-// Jun 14, 2012 release 105
+// Jul 30, 2012 release 306
 // See README.txt
 //
 // © Rei VILO, 2010-2012

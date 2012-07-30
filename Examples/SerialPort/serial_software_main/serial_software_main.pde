@@ -27,8 +27,8 @@
 #include "GUI.h"
 
 // test release
-#if SERIAL_LCD_RELEASE < 132
-#error required SERIAL_LCD_RELEASE 132
+#if SERIAL_LCD_RELEASE < 333
+#error required SERIAL_LCD_RELEASE 333
 #endif
 
 // === Serial port choice

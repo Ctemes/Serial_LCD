@@ -11,8 +11,8 @@
 /// @n
 /// @author	Rei VILO
 /// @author	http://embeddedcomputing.weebly.com
-/// @date	Jul 08, 2012
-/// @version	release 110
+/// @date	Jul 30, 2012
+/// @version	release 311
 /// @n
 /// @copyright	© Rei VILO, 2010-2012
 /// @copyright	CC = BY NC SA
@@ -26,7 +26,7 @@
 ///
 /// @brief	Library release number
 ///
-#define PROXYSERIAL_RELEASE 110
+#define PROXYSERIAL_RELEASE 311
 
 #ifndef proxy_Serial_h
 #define proxy_Serial_h

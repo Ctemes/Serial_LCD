@@ -29,13 +29,13 @@
 #include "Graphics.h"
 
 // test release
-#if GRAPHICS_RELEASE < 112
-#error required GRAPHICS_RELEASE 112
+#if GRAPHICS_RELEASE < 313
+#error required GRAPHICS_RELEASE 313
 #endif
 
 // test release
-#if SERIAL_LCD_RELEASE < 132
-#error required SERIAL_LCD_RELEASE 132
+#if SERIAL_LCD_RELEASE < 333
+#error required SERIAL_LCD_RELEASE 333
 #endif
 
 // uncomment for I2C serial interface

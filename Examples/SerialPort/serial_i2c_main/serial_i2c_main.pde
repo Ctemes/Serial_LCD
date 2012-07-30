@@ -29,12 +29,12 @@
 #include "GUI.h"
 
 // Test release
-#if I2C_SERIAL_RELEASE < 104
-#error required I2C_SERIAL_RELEASE 104
+#if I2C_SERIAL_RELEASE < 333
+#error required I2C_SERIAL_RELEASE 333
 #endif
 // test release
-#if GUI_RELEASE < 114
-#error required GUI_RELEASE 114
+#if GUI_RELEASE < 315
+#error required GUI_RELEASE 315
 #endif
 
 

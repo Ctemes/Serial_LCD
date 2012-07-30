@@ -8,8 +8,8 @@
 /// @n
 /// @author 	Rei VILO
 /// @author 	http://embeddedcomputing.weebly.com
-/// @date 	May 01, 2012
-/// @version 	release 2
+/// @date 	Jul 30, 2012
+/// @version 	release 307
 /// @n
 /// @copyright	© Rei VILO, 2010-2012
 /// @copyright	CC = BY NC SA
@@ -17,7 +17,7 @@
 ///
 
 
-#define I2C_SERIAL_RELEASE 105
+#define I2C_SERIAL_RELEASE 307	
 
 #ifndef I2C_Serial_h
 #define I2C_Serial_h

@@ -11,8 +11,8 @@
 /// 
 /// @author 	Rei VILO
 /// @author 	http://embeddedcomputing.weebly.com
-/// @date	Jul 08, 2012
-/// @version	release 132
+/// @date	Jul 30, 2012
+/// @version	release 333
 /// @n
 /// @copyright 	© Rei VILO, 2010-2012
 /// @copyright 	CC = BY NC SA
@@ -25,7 +25,7 @@
 ///
 
 
-#define SERIAL_LCD_RELEASE 132
+#define SERIAL_LCD_RELEASE 333
 
 #ifndef Serial_LCD_h
 #define Serial_LCD_h
@@ -50,8 +50,8 @@
 // Other libraries
 #include "proxySerial.h"
 
-#if PROXYSERIAL_RELEASE < 110
-#error required PROXYSERIAL_RELEASE 110
+#if PROXYSERIAL_RELEASE < 311
+#error required PROXYSERIAL_RELEASE 311
 #endif
 
 const uint8_t __uOLED__ = 0; ///<	8-bits uLED=0

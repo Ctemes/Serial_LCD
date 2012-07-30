@@ -11,8 +11,8 @@
 /// @n
 /// @author 	Rei VILO
 /// @author 	http://embeddedcomputing.weebly.com
-/// @date 	Jul 08, 2012
-/// @version 	release 112
+/// @date 	Jul 30, 2012
+/// @version 	release 314
 /// @n
 /// @copyright 	© Rei VILO, 2010-2012
 /// @copyright 	CC = BY NC SA
@@ -24,7 +24,7 @@
 ///
 
 
-#define GRAPHICS_RELEASE 112
+#define GRAPHICS_RELEASE 314
 
 #ifndef Graphics_h
 #define Graphics_h
@@ -49,8 +49,8 @@
 // Other libraries
 #include "Serial_LCD.h"
 
-#if SERIAL_LCD_RELEASE < 131
-#error required SERIAL_LCD_RELEASE 131
+#if SERIAL_LCD_RELEASE < 333
+#error required SERIAL_LCD_RELEASE 333
 #endif
 
 class gDial {

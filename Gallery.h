@@ -8,8 +8,8 @@
 /// 
 /// @author 	Rei VILO
 /// @author 	http://embeddedcomputing.weebly.com
-/// @date 	Jun 14, 2012
-/// @version 	release 105
+/// @date 	Jul 30, 2012
+/// @version 	release 306
 /// @n
 /// @copyright	© Rei VILO, 2010-2012
 /// @copyright	CC = BY NC SA
@@ -20,7 +20,7 @@
 /// @n		http://www.4dsystems.com.au/
 ///
 
-#define GALLERY_RELEASE 105
+#define GALLERY_RELEASE 306
 
 #ifndef Gallery_h
 #define Gallery_h
@@ -46,8 +46,8 @@
 #include "Serial_LCD.h"
 #include "vector_t.h"
 
-#if SERIAL_LCD_RELEASE < 131
-#error required SERIAL_LCD_RELEASE 131
+#if SERIAL_LCD_RELEASE < 333
+#error required SERIAL_LCD_RELEASE 333
 #endif
 
 class Gallery {

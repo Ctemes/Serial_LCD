@@ -8,7 +8,7 @@
 //  ----------------------------------
 //  Developed with embedXcode
 //
-// Jun 14, 2012 release 104
+// Jul 30, 2012 release 305
 // See README.txt
 //
 // © Rei VILO, 2010-2012

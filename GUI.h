@@ -11,8 +11,8 @@
 /// @n
 /// @author 	Rei VILO
 /// @author 	http://embeddedcomputing.weebly.com
-/// @date 	Jul 05, 2012
-/// @version 	release 114
+/// @date 	Jul 30, 2012
+/// @version 	release 315
 /// @n
 /// @copyright 	© Rei VILO, 2010-2012
 /// @copyright 	CC = BY NC SA
@@ -23,7 +23,7 @@
 /// @n		http://www.4dsystems.com.au/
 ///
 
-#define GUI_RELEASE 114
+#define GUI_RELEASE 315
 
 #ifndef GUI_h
 #define GUI_h
@@ -48,8 +48,8 @@
 // Other libraries
 #include "Serial_LCD.h"
 
-#if SERIAL_LCD_RELEASE < 131
-#error required SERIAL_LCD_RELEASE 131
+#if SERIAL_LCD_RELEASE < 333
+#error required SERIAL_LCD_RELEASE 333
 #endif
 
 

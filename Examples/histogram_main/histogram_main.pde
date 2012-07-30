@@ -29,8 +29,8 @@
 #include "Graphics.h"
 
 // test release
-#if GUI_RELEASE < 114
-#error required GUI_RELEASE 114
+#if GUI_RELEASE < 315
+#error required GUI_RELEASE 315
 #endif
 
 // uncomment for I2C serial interface

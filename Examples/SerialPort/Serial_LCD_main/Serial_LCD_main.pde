@@ -25,8 +25,8 @@
 #include "Serial_LCD.h"
 
 // test release
-#if SERIAL_LCD_RELEASE < 127
-#error required SERIAL_LCD_RELEASE 127
+#if SERIAL_LCD_RELEASE < 333
+#error required SERIAL_LCD_RELEASE 333
 #endif
 
 // uncomment for I2C serial interface

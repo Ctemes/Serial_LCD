@@ -27,8 +27,8 @@
 
 
 // test release
-#if GUI_RELEASE < 114
-#error required GUI_RELEASE 114
+#if GUI_RELEASE < 315
+#error required GUI_RELEASE 315
 #endif
 
 

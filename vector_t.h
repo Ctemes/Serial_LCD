@@ -11,8 +11,8 @@
 /// 
 /// @author 	Rei VILO
 /// @author 	http://embeddedcomputing.weebly.com
-/// @date 	May 23, 2012
-/// @version 	release 1
+/// @date 	Jul 30, 2012
+/// @version 	release 302
 /// @n
 /// @copyright	© Rei VILO, 2010-2012
 /// @copyright	CC = BY NC SA

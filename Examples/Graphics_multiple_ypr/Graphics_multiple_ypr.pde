@@ -68,8 +68,8 @@
 #include "I2C_Accelerometer.h"
 
 // test release
-#if GRAPHICS_RELEASE < 112
-#error required GRAPHICS_RELEASE 112
+#if GRAPHICS_RELEASE < 313
+#error required GRAPHICS_RELEASE 313
 #endif
 
 // Uncomment for Arduino UNO
