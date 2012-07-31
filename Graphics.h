@@ -73,6 +73,10 @@ protected:
 class gClock: public gDial {
 public:
   gClock();
+  void dDefine(Serial_LCD * lcd0, 
+               uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, 
+              uint16_t backColour=blackColour, uint16_t frontColour=greenColour, 
+              uint16_t hourColour=redColour, uint16_t minuteColour=blueColour, uint16_t secondColour=yellowColour);
   void define(Serial_LCD * lcd0, 
               uint16_t x0, uint16_t y0, uint16_t radius,
               uint16_t backColour=blackColour, uint16_t frontColour=greenColour, 

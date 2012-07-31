@@ -1,4 +1,4 @@
-// 
+//
 // 4D Systems uLCD-uLED-uVGA Serial_LCD Library Suite
 // Arduino 0023 and 1.0, chipKIT MPIDE 0023, Wiring 1.0
 // ----------------------------------
@@ -11,7 +11,7 @@
 //   http://embeddedcomputing.weebly.com/serial-lcd.html
 //   http://github.com/rei-vilo/Serial_LCD
 //
-// For 
+// For
 //   4D Systems Goldelox and Picaso SGC Command Set
 //   http://www.4dsystems.com.au/
 //
@@ -25,7 +25,7 @@
 
 // Utilities
 //
-uint16_t stoh(String in) 
+uint16_t stoh(String in)
 {
   char c;
   uint16_t w = 0;
@@ -41,7 +41,7 @@ uint16_t stoh(String in)
   
   for (uint8_t i=0; i<in.length(); i++) {
     c = in.charAt(i);
-    w <<= 4; 
+    w <<= 4;
     if ((c>='0') && (c<='9')) w |= (c-'0');
     else if ((c>='A') && (c<='F')) w |= (c-'A'+0x0a);
     else if ((c>='a') && (c<='f')) w |= (c-'a'+0x0a);
@@ -50,7 +50,7 @@ uint16_t stoh(String in)
   return w;
 }
 
-uint16_t stod(String in) 
+uint16_t stod(String in)
 {
   char c;
   uint16_t w = 0;
@@ -66,14 +66,14 @@ uint16_t stod(String in)
   
   for (uint8_t i=0; i<in.length(); i++) {
     c = in.charAt(i);
-    w *= 10; 
+    w *= 10;
     if ((c>='0') && (c<='9')) w |= (c-'0');
     else;
   }
   return w;
 }
 
-uint8_t splitString(String in, char delimiter, String s[], uint8_t max) 
+uint8_t splitString(String in, char delimiter, String s[], uint8_t max)
 {
   uint8_t j=0;
   char c;
@@ -85,12 +85,13 @@ uint8_t splitString(String in, char delimiter, String s[], uint8_t max)
     
     else if ( c==delimiter ) {
       j++;
-      if (j+1>max) return j; 
+      if (j+1>max) return j;
       s[j]='\0';
-    } 
+    }
     else s[j] += c;
   }
-} 
+  return j;
+}
 
 // Class
 //
@@ -100,7 +101,7 @@ Gallery::Gallery() { // constructor
 Gallery::~Gallery() { // destructor
 }
 
-uint8_t Gallery::begin(Serial_LCD * lcd0, String name) 
+uint8_t Gallery::begin(Serial_LCD * lcd0, String name)
 {
   uint8_t a;
   _pscreen = lcd0;
@@ -111,7 +112,7 @@ uint8_t Gallery::begin(Serial_LCD * lcd0, String name)
   // check SD-card
   if ( _pscreen->checkSD()==false ) {
     a = _pscreen->initSD();
-    if ( _pscreen->checkSD()==false ) return 0;        
+    if ( _pscreen->checkSD()==false ) return 0;
   }
   
   // check .GCI and .DAT files
@@ -145,22 +146,22 @@ uint8_t Gallery::begin(Serial_LCD * lcd0, String name)
     _gallery[_gallery.size()-1].lsb = stoh(s[1]);
     _gallery[_gallery.size()-1].x   = stoh(s[3]);
     _gallery[_gallery.size()-1].y   = stoh(s[4]);
-  }    
+  }
   _index = 0;
   return _gallery.size();
 }
 
-uint8_t Gallery::number() 
+uint8_t Gallery::number()
 {
   return _gallery.size();
 }
 
-uint8_t Gallery::index() 
+uint8_t Gallery::index()
 {
   return _index;
 }
 
-uint8_t Gallery::showNext() 
+uint8_t Gallery::showNext()
 {
   _index ++;
   _index %= _gallery.size();
@@ -168,7 +169,7 @@ uint8_t Gallery::showNext()
   return showImage(_index);
 }
 
-uint8_t Gallery::showPrevious() 
+uint8_t Gallery::showPrevious()
 {
   if ( _index==0 ) _index=_gallery.size();
   _index--;
@@ -176,10 +177,10 @@ uint8_t Gallery::showPrevious()
   return showImage(_index);
 }
 
-uint8_t Gallery::showImage(uint8_t index) 
+uint8_t Gallery::showImage(uint8_t index)
 {
-  if ( (index<_gallery.size()) ) 
-    return _pscreen->readScreenGCI(Gallery::_name+".gci", _gallery[index].x, _gallery[index].y, _gallery[index].msb, _gallery[index].lsb); 
-  else 
+  if ( (index<_gallery.size()) )
+    return _pscreen->readScreenGCI(Gallery::_name+".gci", _gallery[index].x, _gallery[index].y, _gallery[index].msb, _gallery[index].lsb);
+  else
     return 0x15;
 }

@@ -453,7 +453,7 @@ void gRoll::define(Serial_LCD * lcd0,
 void gRoll::draw(float degrees) 
 {
   float radians, c, s;
-  uint16_t x1, x2, y1, y2;
+//  uint16_t x1, x2, y1, y2;
   
   if (degrees!=_oldDegrees) {
     // old value with _backColour
