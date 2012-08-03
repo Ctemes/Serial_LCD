@@ -21,18 +21,59 @@
 /// @see 	4D Systems Goldelox and Picaso SGC Command Set
 /// @n		http://www.4dsystems.com.au/
 ///
+
+// Core library - MCU-based
+#if defined (__AVR_ATmega328P__) || defined (__AVR_ATmega2560__) // Arduino specific
+#if defined(ARDUINO) && (ARDUINO >= 100)
+#include "Arduino.h" // for Arduino 1.0
+#else
+#include "WProgram.h" // for Arduino 23
+#endif
+#elif defined(__32MX320F128H__) || defined(__32MX795F512L__) // chipKIT specific 
+#include "WProgram.h"
+#elif defined(__AVR_ATmega644P__) // Wiring specific
+#include "Wiring.h"
+#else // error
+#error Platform not supported
+#endif
+
+// uncomment for I2C serial interface
+//#define __I2C_Serial__
+
+// === Serial port choice ===
+#if defined(__I2C_Serial__) // I2C serial
 #include "Wire.h"
 #include "I2C_Serial.h"
+I2C_Serial mySerial(0);
+
+#elif defined (__AVR_ATmega328P__) // software serial
+#if defined(ARDUINO) && (ARDUINO>=100) // for Arduino 1.0
+#include "SoftwareSerial.h"
+SoftwareSerial mySerial(2, 3);
+#else
+#include "NewSoftSerial.h" // for Arduino 23
+NewSoftSerial mySerial(2, 3);
+#endif
+
+#elif defined(__32MX320F128H__) || defined(__32MX795F512L__) || defined (__AVR_ATmega2560__) || defined(__AVR_ATmega644P__) // hardware serial Serial1
+#define mySerial Serial1
+
+#else // error
+#error Platform not defined
+#endif
+// === End of Serial port choice ===
+
 #include "proxySerial.h"
 #include "Serial_LCD.h"
 
 // test release
-#if SERIAL_LCD_RELEASE < 23
-#error required SERIAL_LCD_RELEASE 23
+#if SERIAL_LCD_RELEASE < 333
+#error required SERIAL_LCD_RELEASE 333
 #endif
 
-#define ROWS 80
-#define COLS 60
+// Beware of RAM limitations
+#define ROWS 20 // max 80
+#define COLS 15 // max 60
 #define PERCENT 70 // % dead
 
 // bits 7 . 6 . 5 . 4 . 3 . 2 . 1 . 0
@@ -46,7 +87,6 @@
 #define AGEMASK 0x07
 
 //#define mySerial Serial1
-I2C_Serial mySerial(0);
 ProxySerial myPort(&mySerial); 
 Serial_LCD myLCD(&myPort); 
 
@@ -82,26 +122,35 @@ void new_game() {
 
 
 void setup() {
-//  Serial.begin(9600); 
-//  Serial.println("\n\n\n***"); 
-
-//  Serial.print("Wire.begin...");
-  Wire.begin();
-//  Serial.println("done");
-
-//  Serial.print("mySerial.begin...");
+  Serial.print("mySerial.begin...");
   mySerial.begin(9600); 
-//  Serial.println("done");
+  Serial.println("done");
 
-//  Serial.print("myLCD.begin...");
+
+  // === Serial port initialisation ===
+#if defined(__I2C_Serial__)
+  Wire.begin();
+  mySerial.begin(9600);
+
+#elif defined(__AVR__)  || defined (__AVR_ATmega328P__) | defined (__AVR_ATmega328P__)
+  mySerial.begin(9600);
+
+#elif defined(__PIC32MX__) 
+  Serial1.begin(9600);
+
+#endif 
+  // === End of Serial port initialisation ===
+
+
+  Serial.print("myLCD.begin...");
   myLCD.begin(4); 
-//  Serial.println("done");
+  Serial.println("done");
 
-  myLCD.setSpeed(57600); 
-  mySerial.begin(57600); 
-//  myLCD.setSpeed(115200); 
-//  mySerial.begin(115200); 
-  
+  //  myLCD.setSpeed(57600); 
+  //  mySerial.begin(57600); 
+  //  myLCD.setSpeed(115200); 
+  //  mySerial.begin(115200); 
+
   myLCD.setOrientation(0x03); 
   myLCD.setPenSolid(true); 
   myLCD.setTouch(true); 
@@ -317,6 +366,7 @@ void loop() {
     while(1); 
   }
 }  
+
 
 
 

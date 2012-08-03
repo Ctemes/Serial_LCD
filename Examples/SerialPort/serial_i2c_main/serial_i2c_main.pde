@@ -21,6 +21,22 @@
 /// @see 	4D Systems Goldelox and Picaso SGC Command Set
 /// @n		http://www.4dsystems.com.au/
 ///
+
+// Core library - MCU-based
+#if defined (__AVR_ATmega328P__) || defined (__AVR_ATmega2560__) // Arduino specific
+  #if defined(ARDUINO) && (ARDUINO >= 100)
+  #include "Arduino.h" // for Arduino 1.0
+  #else
+  #include "WProgram.h" // for Arduino 23
+  #endif
+#elif defined(__32MX320F128H__) || defined(__32MX795F512L__) // chipKIT specific 
+#include "WProgram.h"
+#elif defined(__AVR_ATmega644P__) // Wiring specific
+#include "Wiring.h"
+#else // error
+#error Platform not supported
+#endif
+
 // --- i2cSerial Case - Arduino + chipKIT
 #include "Wire.h"
 #include "I2C_Serial.h"
@@ -29,8 +45,8 @@
 #include "GUI.h"
 
 // Test release
-#if I2C_SERIAL_RELEASE < 333
-#error required I2C_SERIAL_RELEASE 333
+#if I2C_SERIAL_RELEASE < 306
+#error required I2C_SERIAL_RELEASE 306
 #endif
 // test release
 #if GUI_RELEASE < 315

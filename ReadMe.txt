@@ -53,7 +53,7 @@ Jun 04, 2012 release 130	RAW image bug fixed
 Jun 14, 2012 release 131	unified release for Arduino 23 & 1.0, chipKIT and Wiring
 Jul 08, 2012 release 132	more compact library
 Jul 30, 2012 release 333	unified release numbering version 3xx
-
+Aug 03, 2012 release 333a	revised examples based on Docedison's feed-back
 
 proxySerial
 Aug 04, 2011 release   1	chipKIT compatibility with external proxySerial.h
