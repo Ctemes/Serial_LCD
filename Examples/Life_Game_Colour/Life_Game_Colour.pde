@@ -124,9 +124,6 @@ void new_game() {
 void setup() {
   Serial.begin(9600); 
   Serial.print("mySerial.begin...");
-  mySerial.begin(9600); 
-  Serial.println("done");
-
 
   // === Serial port initialisation ===
 #if defined(__I2C_Serial__)
@@ -141,6 +138,7 @@ void setup() {
 
 #endif 
   // === End of Serial port initialisation ===
+  Serial.println("done");
 
 
   Serial.print("myLCD.begin...");
