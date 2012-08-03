@@ -57,17 +57,15 @@
 #include "Wire.h"
 #include "I2C_Serial.h"
 I2C_Serial mySerial(0);
-ProxySerial myPort(&mySerial);
 
 // --- Arduino SoftwareSerial Case - Arduino only
 #elif defined (__AVR_ATmega328P__) || defined (__AVR_ATmega328P__)
 #include "NewSoftSerial.h"
 NewSoftSerial mySerial(2, 3); // RX, TX
-ProxySerial myPort(&mySerial);
 
 // --- chipKIT HardwareSerial Case - chipKIT
 #elif defined(__PIC32MX__) || defined (__AVR_ATmega2560__)
-ProxySerial myPort(&Serial1);
+#define mySerial Serial1
 
 #else
 #error Non defined board
@@ -75,6 +73,7 @@ ProxySerial myPort(&Serial1);
 
 // === End of Serial port choice ===
 
+ProxySerial myPort(&mySerial);
 Serial_LCD myLCD( &myPort); 
 
 uint16_t x, y;
@@ -166,7 +165,7 @@ void setup() {
   Serial.print(" images");
 
   Serial.print("\n > ");
-  Serial.print(Serial1.available(), DEC);
+  Serial.print(mySerial.available(), DEC);
 
   if ( a==0 ) {
     Serial.print("\n images not available");
@@ -200,7 +199,7 @@ void setup() {
   //  delay(10000);
 
   Serial.print("\n > ");
-  Serial.print(Serial1.available(), DEC);
+  Serial.print(mySerial.available(), DEC);
 
 }
 

@@ -24,11 +24,11 @@
 
 // Core library - MCU-based
 #if defined (__AVR_ATmega328P__) || defined (__AVR_ATmega2560__) // Arduino specific
-  #if defined(ARDUINO) && (ARDUINO >= 100)
-  #include "Arduino.h" // for Arduino 1.0
-  #else
-  #include "WProgram.h" // for Arduino 23
-  #endif
+#if defined(ARDUINO) && (ARDUINO >= 100)
+#include "Arduino.h" // for Arduino 1.0
+#else
+#include "WProgram.h" // for Arduino 23
+#endif
 #elif defined(__32MX320F128H__) || defined(__32MX795F512L__) // chipKIT specific 
 #include "WProgram.h"
 #elif defined(__AVR_ATmega644P__) // Wiring specific
@@ -49,7 +49,7 @@
 
 
 // --- HardwareSerial Case - Arduino + chipKIT
-  #define mySerial Serial1
+#define mySerial Serial1
 ProxySerial myPort(&mySerial);
 Serial_LCD myLCD(&myPort); 
 button b7;
@@ -144,6 +144,7 @@ void loop() {
   myLCD.gText( 250, 225, ftoa(millis()-l, 0, 6));
   l=millis();
 }
+
 
 
 
