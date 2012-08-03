@@ -122,8 +122,9 @@ void new_game() {
 
 
 void setup() {
-  mySerial.begin(9600); 
+  Serial.begin(9600); 
   Serial.print("mySerial.begin...");
+  mySerial.begin(9600); 
   Serial.println("done");
 
 
