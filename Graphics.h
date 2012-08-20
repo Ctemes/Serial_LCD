@@ -30,7 +30,7 @@
 #define Graphics_h
 
 // Core library - MCU-based
-#if defined (__AVR_ATmega328P__) || defined (__AVR_ATmega2560__) // Arduino specific
+#if defined(__AVR_ATmega328P__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega1280__) // Arduino specific
 #if defined(ARDUINO) && (ARDUINO >= 100)
 #include "Arduino.h" // for Arduino 1.0
 #else
