@@ -23,7 +23,7 @@
 ///
 
 // Core library - MCU-based
-#if defined (__AVR_ATmega328P__) || defined (__AVR_ATmega2560__) // Arduino specific
+#if defined(__AVR_ATmega328P__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega1280__) // Arduino specific
   #if defined(ARDUINO) && (ARDUINO >= 100)
   #include "Arduino.h" // for Arduino 1.0
   #else
@@ -58,7 +58,7 @@
 #include "I2C_Serial.h"
 I2C_Serial mySerial(0);
 
-#elif defined (__AVR_ATmega328P__) // software serial
+#elif defined(__AVR_ATmega328P__) // software serial
 #if defined(ARDUINO) && (ARDUINO>=100) // for Arduino 1.0
 #include "SoftwareSerial.h"
 SoftwareSerial mySerial(2, 3);
@@ -67,7 +67,7 @@ SoftwareSerial mySerial(2, 3);
 NewSoftSerial mySerial(2, 3);
 #endif
 
-#elif defined(__32MX320F128H__) || defined(__32MX795F512L__) || defined (__AVR_ATmega2560__) || defined(__AVR_ATmega644P__) // hardware serial Serial1
+#elif defined(__32MX320F128H__) || defined(__32MX795F512L__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega644P__) // hardware serial Serial1
 #define mySerial Serial1
 
 #else // error
@@ -88,7 +88,7 @@ void setup() {
   Serial.begin(19200);
   Serial.print("\n\n\n***\n");
 
-#if defined(__AVR__)  || defined (__AVR_ATmega328P__) | defined (__AVR_ATmega328P__)
+#if defined(__AVR__)  || defined(__AVR_ATmega328P__) | defined(__AVR_ATmega328P__)
   Serial.print("avr\t");
   Serial.print(__AVR__);
   Serial.print("\n");

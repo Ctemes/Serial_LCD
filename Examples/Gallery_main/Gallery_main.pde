@@ -24,7 +24,7 @@
 //
 
 // Core library - MCU-based
-#if defined (__AVR_ATmega328P__) || defined (__AVR_ATmega2560__) // Arduino specific
+#if defined(__AVR_ATmega328P__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega1280__) // Arduino specific
   #if defined(ARDUINO) && (ARDUINO >= 100)
   #include "Arduino.h" // for Arduino 1.0
   #else
@@ -59,12 +59,12 @@
 I2C_Serial mySerial(0);
 
 // --- Arduino SoftwareSerial Case - Arduino only
-#elif defined (__AVR_ATmega328P__) || defined (__AVR_ATmega328P__)
+#elif defined(__AVR_ATmega328P__) || defined(__AVR_ATmega328P__)
 #include "NewSoftSerial.h"
 NewSoftSerial mySerial(2, 3); // RX, TX
 
 // --- chipKIT HardwareSerial Case - chipKIT
-#elif defined(__PIC32MX__) || defined (__AVR_ATmega2560__)
+#elif defined(__PIC32MX__) || defined(__AVR_ATmega2560__)
 #define mySerial Serial1
 
 #else
@@ -97,7 +97,7 @@ void setup() {
   Serial.print("Arduino: NewSoftSerial\n");
   mySerial.begin(9600);
 
-#elif defined(__PIC32MX__) || defined (__AVR_ATmega2560__)
+#elif defined(__PIC32MX__) || defined(__AVR_ATmega2560__)
   Serial.print("chipKIT or mega2560: Serial1\n");
   Serial1.begin(9600);
 
