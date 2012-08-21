@@ -8,8 +8,8 @@
 /// 
 /// @author 	Rei VILO
 /// @author 	http://embeddedcomputing.weebly.com
-/// @date 	Jul 30, 2012
-/// @version 	release 306
+/// @date	Aug 21, 2012
+/// @version 	release 307
 /// @n
 /// @copyright	© Rei VILO, 2010-2012
 /// @copyright	CC = BY NC SA
@@ -20,7 +20,7 @@
 /// @n		http://www.4dsystems.com.au/
 ///
 
-#define GALLERY_RELEASE 306
+#define GALLERY_RELEASE 307
 
 #ifndef Gallery_h
 #define Gallery_h
@@ -46,15 +46,15 @@
 #include "Serial_LCD.h"
 #include "vector_t.h"
 
-#if SERIAL_LCD_RELEASE < 333
-#error required SERIAL_LCD_RELEASE 333
+#if SERIAL_LCD_RELEASE < 334
+#error required SERIAL_LCD_RELEASE 334
 #endif
 
 class Gallery {
 public:
   Gallery(); 
   ~Gallery();
-  uint8_t begin(Serial_LCD * lcd0, String name);
+  uint8_t begin(Serial_LCD * lcd, String name);
   uint8_t number();
   uint8_t index();
   uint8_t showNext();

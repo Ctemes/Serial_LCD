@@ -11,8 +11,8 @@
 /// @n
 /// @author	Rei VILO
 /// @author	http://embeddedcomputing.weebly.com
-/// @date	Jul 30, 2012
-/// @version	release 305
+/// @date	Aug 21, 2012
+/// @version	release 306
 /// @n
 /// @copyright	© Rei VILO, 2010-2012
 /// @copyright	CC = BY NC SA
@@ -23,14 +23,13 @@
 /// @n		http://www.4dsystems.com.au/
 ///
 
-
-#define ENERGY_RELEASE 305
+#define ENERGY_RELEASE 306
 
 #ifndef Energy_h
 #define Energy_h
 
 // Core library - MCU-based
-#if defined(__AVR_ATmega328P__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega1280__) // Arduino specific
+#if defined(__AVR_ATmega328P__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega1280__) // Arduino specific
 #if (ARDUINO>=100)
 #include "Arduino.h" // for Arduino 1.0
 #else
@@ -47,14 +46,14 @@
 // Other libraries
 #include "Serial_LCD.h"
 
-#if SERIAL_LCD_RELEASE < 333
-#error required SERIAL_LCD_RELEASE 333
+#if SERIAL_LCD_RELEASE < 334
+#error required SERIAL_LCD_RELEASE 334
 #endif
 
 class Energy {
 public:
   Energy();
-  void begin(Serial_LCD * lcd0, uint32_t seconds=3);
+  void begin(Serial_LCD * lcd, uint32_t seconds=3);
   void check(boolean flag);
   
 private:

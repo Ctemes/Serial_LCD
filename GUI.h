@@ -11,8 +11,8 @@
 /// @n
 /// @author 	Rei VILO
 /// @author 	http://embeddedcomputing.weebly.com
-/// @date 	Jul 30, 2012
-/// @version 	release 315
+/// @date	Aug 21, 2012
+/// @version 	release 316
 /// @n
 /// @copyright 	© Rei VILO, 2010-2012
 /// @copyright 	CC = BY NC SA
@@ -23,7 +23,7 @@
 /// @n		http://www.4dsystems.com.au/
 ///
 
-#define GUI_RELEASE 315
+#define GUI_RELEASE 316
 
 #ifndef GUI_h
 #define GUI_h
@@ -48,8 +48,8 @@
 // Other libraries
 #include "Serial_LCD.h"
 
-#if SERIAL_LCD_RELEASE < 333
-#error required SERIAL_LCD_RELEASE 333
+#if SERIAL_LCD_RELEASE < 334
+#error required SERIAL_LCD_RELEASE 334
 #endif
 
 
@@ -66,14 +66,14 @@ item setItem(uint8_t index0, String text0);
 class button {
 public:
   button();
-  void  define(Serial_LCD * lcd0, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, item item0, uint16_t textColour1, uint16_t highColour1);
-  void dDefine(Serial_LCD * lcd0, uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, item item0, uint16_t textColour1, uint16_t highColour1);
-  void  define(Serial_LCD * lcd0, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, item item0, uint16_t textColour1, uint16_t highColour1, uint16_t lowColour1, uint8_t size0=9);
-  void dDefine(Serial_LCD * lcd0, uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, item item0, uint16_t textColour1, uint16_t highColour1, uint16_t lowColour1, uint8_t size0=9);
-  void  stringDefine(Serial_LCD * lcd0, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, String text0, uint16_t textColour1, uint16_t highColour1);
-  void dStringDefine(Serial_LCD * lcd0, uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, String text0, uint16_t textColour1, uint16_t highColour1);
-  void  stringDefine(Serial_LCD * lcd0, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, String text0, uint16_t textColour1, uint16_t highColour1, uint16_t lowColour1, uint8_t size0=9);
-  void dStringDefine(Serial_LCD * lcd0, uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, String text0, uint16_t textColour1, uint16_t highColour1, uint16_t lowColour1, uint8_t size0=9);
+  void  define(Serial_LCD * lcd, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, item item0, uint16_t textColour1, uint16_t highColour1);
+  void dDefine(Serial_LCD * lcd, uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, item item0, uint16_t textColour1, uint16_t highColour1);
+  void  define(Serial_LCD * lcd, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, item item0, uint16_t textColour1, uint16_t highColour1, uint16_t lowColour1, uint8_t size0=9);
+  void dDefine(Serial_LCD * lcd, uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, item item0, uint16_t textColour1, uint16_t highColour1, uint16_t lowColour1, uint8_t size0=9);
+  void  stringDefine(Serial_LCD * lcd, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, String text0, uint16_t textColour1, uint16_t highColour1);
+  void dStringDefine(Serial_LCD * lcd, uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, String text0, uint16_t textColour1, uint16_t highColour1);
+  void  stringDefine(Serial_LCD * lcd, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, String text0, uint16_t textColour1, uint16_t highColour1, uint16_t lowColour1, uint8_t size0=9);
+  void dStringDefine(Serial_LCD * lcd, uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, String text0, uint16_t textColour1, uint16_t highColour1, uint16_t lowColour1, uint8_t size0=9);
   boolean state();
   void draw(boolean flag=false);
   void enable(boolean flag=true);
@@ -91,27 +91,27 @@ private:
 };
 
 
-uint8_t dialog(Serial_LCD * lcd0, 
+uint8_t dialog(Serial_LCD * lcd, 
                String text0, uint8_t kind0, uint16_t textColour0, uint16_t highColour0, uint16_t lowColour0, 
                String text1="Press OK", String button1="OK", uint16_t textColour1=whiteColour, uint16_t highColour1=blueColour, uint16_t lowColour1=blackColour, 
                String text2="\0", String button2="\0", uint16_t textColour2=0, uint16_t highColour2=0, uint16_t lowColour2=0, 
                String text3="\0", String button3="\0", uint16_t textColour3=0, uint16_t highColour3=0, uint16_t lowColour3=0);
 
-uint16_t menu(Serial_LCD * lcd0, 
+uint16_t menu(Serial_LCD * lcd, 
               item menuItem0[], uint8_t nItems0, 
               uint16_t textColour0, uint16_t highColourMain0, uint16_t highColourSub0);
 
-void dLabel(Serial_LCD * lcd0, 
+void dLabel(Serial_LCD * lcd, 
             uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, 
             String text0, uint16_t textColour0=whiteColour, uint16_t backColour0=blackColour, 
             uint8_t horizontal0=0, uint8_t vertical0=0, uint8_t size0=9);
 
-void  label(Serial_LCD * lcd0, 
+void  label(Serial_LCD * lcd, 
             uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, 
             String text0, uint16_t textColour0=whiteColour, uint16_t backColour0=blackColour, 
             uint8_t horizontal0=0, uint8_t vertical0=0, uint8_t size0=9);
 
-boolean slider(Serial_LCD * lcd0, 
+boolean slider(Serial_LCD * lcd, 
                uint16_t &value, uint16_t min=0, uint16_t max=511, uint16_t step=8, 
                uint16_t minColour0=greenColour, uint16_t maxColour0=redColour, 
                String okText0="OK", uint16_t okTextColour0=whiteColour, uint16_t okColour0=blueColour, 

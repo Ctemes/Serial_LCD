@@ -3,7 +3,7 @@
 // Arduino 0023 and 1.0, chipKIT MPIDE 0023, Wiring 1.0
 // ----------------------------------
 //
-// Jul 30, 2012 release 315
+// Aug 21, 2012 release 316
 // See README.txt
 //
 // © Rei VILO, 2010-2012
@@ -36,61 +36,61 @@ button::button() {
 }
 
 // string-based button
-void button::dStringDefine(Serial_LCD * lcd0, 
+void button::dStringDefine(Serial_LCD * lcd, 
                            uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, 
                            String text0, uint16_t textColour1, uint16_t highColour1) 
 {  
-  stringDefine(lcd0, x0, y0, x0+dx-1, y0+dy-1, text0, textColour1, highColour1, lcd0->halfColour(highColour1), 9);
+  stringDefine(lcd, x0, y0, x0+dx-1, y0+dy-1, text0, textColour1, highColour1, lcd->halfColour(highColour1), 9);
 }
 
-void  button::stringDefine(Serial_LCD * lcd0, 
+void  button::stringDefine(Serial_LCD * lcd, 
                            uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, 
                            String text0, uint16_t textColour1, uint16_t highColour1) 
 {  
-  stringDefine(lcd0, x1, y1, x2, y2, text0, textColour1, highColour1, lcd0->halfColour(highColour1), 9);
+  stringDefine(lcd, x1, y1, x2, y2, text0, textColour1, highColour1, lcd->halfColour(highColour1), 9);
 }
 
-void button::dStringDefine(Serial_LCD * lcd0, 
+void button::dStringDefine(Serial_LCD * lcd, 
                            uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, 
                            String text0, uint16_t textColour1, uint16_t highColour1, uint16_t lowColour1, uint8_t size0) 
 {  
-  stringDefine(lcd0, x0, y0, x0+dx-1, y0+dy-1, text0, textColour1, highColour1, lowColour1, size0);
+  stringDefine(lcd, x0, y0, x0+dx-1, y0+dy-1, text0, textColour1, highColour1, lowColour1, size0);
 }
 
-void  button::stringDefine(Serial_LCD * lcd0, 
+void  button::stringDefine(Serial_LCD * lcd, 
                            uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, 
                            String text0, uint16_t textColour1, uint16_t highColour1, uint16_t lowColour1, uint8_t size0) 
 {  
-  define(lcd0, x1, y1, x2, y2, setItem(0, text0), textColour1, highColour1, lowColour1, size0);
+  define(lcd, x1, y1, x2, y2, setItem(0, text0), textColour1, highColour1, lowColour1, size0);
 }
 
 // item-based button
-void button::define(Serial_LCD * lcd0, 
+void button::define(Serial_LCD * lcd, 
                     uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, 
                     item item0, uint16_t textColour1, uint16_t highColour1) 
 {  
-  define(lcd0, x1, y1, x2, y2, item0, textColour1, highColour1, _pscreen->halfColour(highColour1), 9);
+  define(lcd, x1, y1, x2, y2, item0, textColour1, highColour1, _pscreen->halfColour(highColour1), 9);
 }
 
-void button::dDefine(Serial_LCD * lcd0, 
+void button::dDefine(Serial_LCD * lcd, 
                      uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, 
                      item item0, uint16_t textColour1, uint16_t highColour1) 
 {  
-  dDefine(lcd0, x0, y0, dx, dy, item0, textColour1, highColour1, _pscreen->halfColour(highColour1), 9);
+  dDefine(lcd, x0, y0, dx, dy, item0, textColour1, highColour1, _pscreen->halfColour(highColour1), 9);
 }
 
-void button::dDefine(Serial_LCD  * lcd0, 
+void button::dDefine(Serial_LCD  * lcd, 
                      uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, 
                      item item0, uint16_t textColour1, uint16_t highColour1, uint16_t lowColour1, uint8_t size0) 
 {  
-  define(lcd0, x0, y0, x0+dx-1, y0+dy-1, item0, textColour1, highColour1, lowColour1, size0);
+  define(lcd, x0, y0, x0+dx-1, y0+dy-1, item0, textColour1, highColour1, lowColour1, size0);
 }
 
-void button::define(Serial_LCD  * lcd0, 
+void button::define(Serial_LCD  * lcd, 
                     uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, 
                     item item0, uint16_t textColour1, uint16_t highColour1, uint16_t lowColour1, uint8_t size0) 
 {  
-  _pscreen = lcd0;
+  _pscreen = lcd;
   
   _x1 = x1;
   _y1 = y1;
@@ -201,14 +201,14 @@ uint16_t button::getIndex()
 }
 
 // ---- dialog
-uint8_t dialog(Serial_LCD * lcd0, 
+uint8_t dialog(Serial_LCD * lcd, 
                String text0, uint8_t kind0, uint16_t textColour0, uint16_t highColour0, uint16_t lowColour0, 
                String text1, String button1, uint16_t textColour1, uint16_t highColour1, uint16_t lowColour1, 
                String text2, String button2, uint16_t textColour2, uint16_t highColour2, uint16_t lowColour2, 
                String text3, String button3, uint16_t textColour3, uint16_t highColour3, uint16_t lowColour3) {
 
   uint8_t a;
-  Serial_LCD * _pscreen = lcd0;
+  Serial_LCD * _pscreen = lcd;
   
   // Check SD
   if ( !_pscreen->checkSD() ) a = _pscreen->initSD();
@@ -317,7 +317,7 @@ uint8_t dialog(Serial_LCD * lcd0,
 
 
 // ---- menu
-uint16_t menu(Serial_LCD * lcd0, 
+uint16_t menu(Serial_LCD * lcd, 
               item menuItem0[], uint8_t nItems0, 
               uint16_t textColour0, uint16_t highColourMain0, uint16_t highColourSub0) 
 {  
@@ -329,7 +329,7 @@ uint16_t menu(Serial_LCD * lcd0,
   boolean oldState0, oldState7;
   uint8_t a;
   uint32_t sizeRAW;
-  Serial_LCD * _pscreen = lcd0;
+  Serial_LCD * _pscreen = lcd;
   
   // Check SD
   nItems = nItems0;
@@ -510,15 +510,15 @@ uint16_t menu(Serial_LCD * lcd0,
 
 
 // ---- label
-void dLabel(Serial_LCD  * lcd0, 
+void dLabel(Serial_LCD  * lcd, 
             uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, 
             String text0, uint16_t textColour0, uint16_t backColour0, 
             uint8_t horizontal0, uint8_t vertical0, uint8_t size0) 
 {
-  label(lcd0, x0, y0, x0+dx-1, y0+dy-1, text0, textColour0, backColour0, horizontal0, vertical0, size0);
+  label(lcd, x0, y0, x0+dx-1, y0+dy-1, text0, textColour0, backColour0, horizontal0, vertical0, size0);
 }
 
-void label(Serial_LCD  * lcd0, 
+void label(Serial_LCD  * lcd, 
            uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, 
            String text0, uint16_t textColour0, uint16_t backColour0, 
            uint8_t horizontal0, uint8_t vertical0, uint8_t size0) 
@@ -526,7 +526,7 @@ void label(Serial_LCD  * lcd0,
   uint8_t _size;
   uint16_t _xt, _yt;
   String _text;
-  Serial_LCD * _pscreen = lcd0;
+  Serial_LCD * _pscreen = lcd;
   
   if ( size0==9 ) {
     uint16_t i=4;
@@ -574,13 +574,13 @@ void label(Serial_LCD  * lcd0,
 
 
 // ---- slider
-boolean slider(Serial_LCD * lcd0, 
+boolean slider(Serial_LCD * lcd, 
                uint16_t &value, uint16_t min, uint16_t max, uint16_t step, 
                uint16_t minColour0, uint16_t maxColour0, 
                String okText0, uint16_t okTextColour0, uint16_t okColour0, 
                String cancelText0, uint16_t cancelTextColour0, uint16_t cancelColour0) 
 {  
-  Serial_LCD * _pscreen = lcd0;
+  Serial_LCD * _pscreen = lcd;
   
   char a = 0x00;
   int16_t i, j;

@@ -11,8 +11,8 @@
 /// 
 /// @author 	Rei VILO
 /// @author 	http://embeddedcomputing.weebly.com
-/// @date	Jul 30, 2012
-/// @version	release 333
+/// @date	Aug 21, 2012
+/// @version	release 334
 /// @n
 /// @copyright 	© Rei VILO, 2010-2012
 /// @copyright 	CC = BY NC SA
@@ -25,7 +25,7 @@
 ///
 
 
-#define SERIAL_LCD_RELEASE 333
+#define SERIAL_LCD_RELEASE 334
 
 #ifndef Serial_LCD_h
 #define Serial_LCD_h
@@ -50,8 +50,8 @@
 // Other libraries
 #include "proxySerial.h"
 
-#if PROXYSERIAL_RELEASE < 311
-#error required PROXYSERIAL_RELEASE 311
+#if PROXYSERIAL_RELEASE < 312
+#error required PROXYSERIAL_RELEASE 312
 #endif
 
 const uint8_t __uOLED__ = 0; ///<	8-bits uLED=0
@@ -77,7 +77,7 @@ const uint16_t grayColour    = 0b0111101111101111; ///<	gray
 //
 class Serial_LCD {
 public:
-  Serial_LCD(ProxySerial * port0); // uint8_t receivePin, uint8_t transmitPin); // constructor
+  Serial_LCD(ProxySerial * port); // uint8_t receivePin, uint8_t transmitPin); // constructor
   void begin(int8_t resetPin=-1); // AutoBaud – 55hex
   uint8_t setSpeed(uint32_t speed); // Set new Baud-Rate - 51hex
   String WhoAmI(); // Version-Device Info Request – 56hex

@@ -8,7 +8,7 @@
 //  ----------------------------------
 //  Developed with embedXcode
 //
-// Jul 30, 2012 release 305
+// Aug 21, 2012 release 306
 // See README.txt
 //
 // © Rei VILO, 2010-2012
@@ -23,7 +23,7 @@
 //
 
 // Core library - MCU-based
-#if defined(__AVR_ATmega328P__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega1280__) // Arduino specific
+#if defined(__AVR_ATmega328P__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega1280__) // Arduino specific
 #if (ARDUINO>=100)
 #include "Arduino.h" // for Arduino 1.0
 #else
@@ -44,8 +44,8 @@
 Energy::Energy() {
 }
 
-void Energy::begin(Serial_LCD * lcd0, uint32_t seconds) {
-  _pscreen = lcd0;
+void Energy::begin(Serial_LCD * lcd, uint32_t seconds) {
+  _pscreen = lcd;
   _ms = (uint32_t)seconds*1000;
   _chrono = millis();
   _state = true; // backlight on

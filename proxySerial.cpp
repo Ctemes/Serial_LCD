@@ -1,9 +1,9 @@
-// 
+//
 // 4D Systems uLCD-uLED-uVGA Serial_LCD Library Suite
 // Arduino 0023 and 1.0, chipKIT MPIDE 0023, Wiring 1.0
 // ----------------------------------
 //
-// Jul 30, 2012 release 311
+// Aug 21, 2012 release 312
 // See README.txt
 //
 // © Rei VILO, 2010-2012
@@ -130,8 +130,8 @@ String htoa(uint32_t number, uint8_t size) {
 
 // Object
 
-ProxySerial::ProxySerial(Stream * port0) {
-  _proxyPort = port0; 
+ProxySerial::ProxySerial(Stream * port) {
+  _proxyPort = port; 
   _millis = millis() + securityDelay;
 }
 

@@ -10,6 +10,13 @@
 * **master** = unified release for Arduino 0023 and 1.0, chipKIT MPIDE 0023, Wiring
 
 
+## Deprecation notice
+
+`button::define`, `button::stringDefine` and `Label` are going to be deprecated in the next major release. 
+
+Please consider `button::dDefine`, `button::dStringDefine` and `dLabel` instead.
+
+
 
 ## Links
 

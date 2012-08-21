@@ -3,7 +3,7 @@
 // Arduino 0023 and 1.0, chipKIT MPIDE 0023, Wiring 1.0
 // ----------------------------------
 //
-// Jul 30, 2012 release 306
+// Aug 21, 2012 release 307
 // See README.txt
 //
 // © Rei VILO, 2010-2012
@@ -101,10 +101,10 @@ Gallery::Gallery() { // constructor
 Gallery::~Gallery() { // destructor
 }
 
-uint8_t Gallery::begin(Serial_LCD * lcd0, String name)
+uint8_t Gallery::begin(Serial_LCD * lcd, String name)
 {
   uint8_t a;
-  _pscreen = lcd0;
+  _pscreen = lcd;
   String text;
   String s[5];
   _name = name;

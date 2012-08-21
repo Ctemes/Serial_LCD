@@ -3,7 +3,7 @@
 // Arduino 0023 and 1.0, chipKIT MPIDE 0023, Wiring 1.0
 // ----------------------------------
 //
-// Jul 30, 2012 release 333
+// Aug 21, 2012 release 334
 // See README.txt
 //
 // © Rei VILO, 2010-2012
@@ -23,8 +23,8 @@
 #include "proxySerial.h"
 
 // Constructor
-Serial_LCD::Serial_LCD(ProxySerial * port0) {
-  _port=port0;
+Serial_LCD::Serial_LCD(ProxySerial * port) {
+  _port=port;
 };
 
 

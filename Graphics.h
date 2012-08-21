@@ -11,8 +11,8 @@
 /// @n
 /// @author 	Rei VILO
 /// @author 	http://embeddedcomputing.weebly.com
-/// @date 	Jul 30, 2012
-/// @version 	release 314
+/// @date	Aug 21, 2012
+/// @version 	release 315
 /// @n
 /// @copyright 	© Rei VILO, 2010-2012
 /// @copyright 	CC = BY NC SA
@@ -24,7 +24,7 @@
 ///
 
 
-#define GRAPHICS_RELEASE 314
+#define GRAPHICS_RELEASE 315
 
 #ifndef Graphics_h
 #define Graphics_h
@@ -49,8 +49,8 @@
 // Other libraries
 #include "Serial_LCD.h"
 
-#if SERIAL_LCD_RELEASE < 333
-#error required SERIAL_LCD_RELEASE 333
+#if SERIAL_LCD_RELEASE < 334
+#error required SERIAL_LCD_RELEASE 334
 #endif
 
 class gDial {
@@ -58,7 +58,7 @@ public:
   gDial();
   
 protected:
-  void drawDial(Serial_LCD * lcd0, 
+  void drawDial(Serial_LCD * lcd, 
                 uint16_t x0, uint16_t y0, uint16_t radius,
                 uint16_t backColour, uint16_t frontColour, 
                 uint16_t gridColour, uint16_t valueColour);
@@ -73,11 +73,11 @@ protected:
 class gClock: public gDial {
 public:
   gClock();
-  void dDefine(Serial_LCD * lcd0, 
+  void dDefine(Serial_LCD * lcd, 
                uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, 
               uint16_t backColour=blackColour, uint16_t frontColour=greenColour, 
               uint16_t hourColour=redColour, uint16_t minuteColour=blueColour, uint16_t secondColour=yellowColour);
-  void define(Serial_LCD * lcd0, 
+  void define(Serial_LCD * lcd, 
               uint16_t x0, uint16_t y0, uint16_t radius,
               uint16_t backColour=blackColour, uint16_t frontColour=greenColour, 
               uint16_t hourColour=redColour, uint16_t minuteColour=blueColour, uint16_t secondColour=yellowColour);
@@ -92,11 +92,11 @@ private:
 class gYaw: public gDial {
 public:
   gYaw();
-  void dDefine(Serial_LCD * lcd0, 
+  void dDefine(Serial_LCD * lcd, 
                uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, 
                uint16_t backColour=blackColour, uint16_t frontColour=whiteColour, 
                uint16_t gridColour=yellowColour, uint16_t valueColour=blueColour);
-  void define(Serial_LCD * lcd0, 
+  void define(Serial_LCD * lcd, 
               uint16_t x0, uint16_t y0, uint16_t radius, 
               uint16_t backColour=blackColour, uint16_t frontColour=whiteColour, 
               uint16_t gridColour=yellowColour, uint16_t valueColour=blueColour);
@@ -110,11 +110,11 @@ private:
 class gPitch: public gDial {
 public:
   gPitch();
-  void dDefine(Serial_LCD * lcd0, 
+  void dDefine(Serial_LCD * lcd, 
                uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, 
                uint16_t backColour=blackColour, uint16_t frontColour=whiteColour, 
                uint16_t gridColour=yellowColour, uint16_t valueColour=blueColour);
-  void define(Serial_LCD * lcd0, 
+  void define(Serial_LCD * lcd, 
               uint16_t x0, uint16_t y0, uint16_t radius, 
               uint16_t backColour=blackColour, uint16_t frontColour=whiteColour, 
               uint16_t gridColour=yellowColour, uint16_t valueColour=blueColour);
@@ -128,11 +128,11 @@ private:
 class gRoll: public gDial {
 public:
   gRoll();
-  void dDefine(Serial_LCD * lcd0, 
+  void dDefine(Serial_LCD * lcd, 
                uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, 
                uint16_t backColour=blackColour, uint16_t frontColour=whiteColour, 
                uint16_t gridColour=yellowColour, uint16_t valueColour=blueColour);
-  void define(Serial_LCD * lcd0, 
+  void define(Serial_LCD * lcd, 
               uint16_t x0, uint16_t y0, uint16_t radius, 
               uint16_t backColour=blackColour, uint16_t frontColour=whiteColour, 
               uint16_t gridColour=yellowColour, uint16_t valueColour=blueColour);
@@ -146,11 +146,11 @@ private:
 class gGauge: public gDial {
 public:
   gGauge();
-  void define(Serial_LCD * lcd0, uint16_t x0, uint16_t y0, uint16_t radius, 
+  void define(Serial_LCD * lcd, uint16_t x0, uint16_t y0, uint16_t radius, 
               float valueMin, float valueMax, uint16_t memory=8, uint16_t grid=8, 
               uint16_t backColour=blackColour, uint16_t frontColour=whiteColour, uint16_t gridColour=yellowColour, 
               uint16_t valueColour=blueColour, uint16_t minColour=greenColour, uint16_t maxColour=redColour);
-  void dDefine(Serial_LCD * lcd0, uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, 
+  void dDefine(Serial_LCD * lcd, uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, 
                float valueMin, float valueMax, uint16_t memory=8, uint16_t grid=8, 
                uint16_t backColour=blackColour, uint16_t frontColour=whiteColour, uint16_t gridColour=yellowColour, 
                uint16_t valueColour=blueColour, uint16_t minColour=greenColour, uint16_t maxColour=redColour);
@@ -172,7 +172,7 @@ public:
   gPanel();
   
 protected:
-  void drawPanel(Serial_LCD * lcd0, 
+  void drawPanel(Serial_LCD * lcd, 
                  uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy,
                  uint16_t lapse, uint16_t gridX, uint16_t gridY, boolean continous,
                  uint16_t backColour, uint16_t frontColour, uint16_t gridColour);
@@ -193,13 +193,13 @@ protected:
 class gHistogram: public gPanel {
 public:
   gHistogram();
-  void dDefine(Serial_LCD * lcd0, uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, 
+  void dDefine(Serial_LCD * lcd, uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, 
                float valueMin, float valueMax, 
                uint32_t lapse=0, uint16_t memory=8, 
                uint16_t gridX=4, uint16_t gridY=0, boolean continous=false, 
                uint16_t backColour=blackColour, uint16_t frontColour=whiteColour, uint16_t gridColour=yellowColour, 
                uint16_t valueColour=blueColour, uint16_t minColour=greenColour, uint16_t maxColour=redColour);
-  void define(Serial_LCD * lcd0, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, 
+  void define(Serial_LCD * lcd, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, 
               float valueMin, float valueMax, 
               uint32_t lapse=0, uint16_t memory=8, uint16_t gridX=4, uint16_t gridY=0, boolean continous=false, 
               uint16_t backColour=blackColour, uint16_t frontColour=whiteColour, uint16_t gridColour=yellowColour, 
@@ -218,7 +218,7 @@ private:
 class gMultiple: public gPanel {
 public:
   gMultiple();
-  void dDefine(Serial_LCD * lcd0,
+  void dDefine(Serial_LCD * lcd,
                uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy,
                String serie1, float valueMin1, float valueMax1, uint16_t valueColour1=blueColour,
                String serie2="", float valueMin2=0, float valueMax2=0, uint16_t valueColour2=greenColour,
@@ -226,7 +226,7 @@ public:
                String serie4="", float valueMin4=0, float valueMax4=0, uint16_t valueColour4=whiteColour,
                uint32_t lapse=0, uint16_t gridX=4, uint16_t gridY=0, boolean continous=false,
                uint16_t backColour=blackColour, uint16_t frontColour=whiteColour, uint16_t gridColour=yellowColour);
-  void define(Serial_LCD * lcd0, 
+  void define(Serial_LCD * lcd, 
               uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, 
               String serie1, float valueMin1, float valueMax1, uint16_t valueColour1=blueColour,
               String serie2="", float valueMin2=0, float valueMax2=0, uint16_t valueColour2=greenColour,

@@ -11,8 +11,8 @@
 /// @n
 /// @author	Rei VILO
 /// @author	http://embeddedcomputing.weebly.com
-/// @date	Jul 30, 2012
-/// @version	release 311
+/// @date	Aug 21, 2012
+/// @version	release 312
 /// @n
 /// @copyright	© Rei VILO, 2010-2012
 /// @copyright	CC = BY NC SA
@@ -26,7 +26,7 @@
 ///
 /// @brief	Library release number
 ///
-#define PROXYSERIAL_RELEASE 311
+#define PROXYSERIAL_RELEASE 312
 
 #ifndef proxy_Serial_h
 #define proxy_Serial_h
@@ -59,7 +59,7 @@ String ttoa(uint64_t number, uint8_t precision=0, uint8_t size=0);
 class ProxySerial
 {
 public:
-  ProxySerial(Stream * port0);
+  ProxySerial(Stream * port);
   void begin(uint16_t dummy);  // to be managed at serial port level
   void setXY16(boolean flag);
   void print(int8_t i);

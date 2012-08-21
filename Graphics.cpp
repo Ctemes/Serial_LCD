@@ -3,7 +3,7 @@
 // Arduino 0023 and 1.0, chipKIT MPIDE 0023, Wiring 1.0
 // ----------------------------------
 //
-// Jul 30, 2012, release 314
+// Aug 21, 2012 release 315
 // See README.txt
 //
 // © Rei VILO, 2010-2012
@@ -27,12 +27,12 @@ gDial::gDial() {
   ;
 }
 
-void gDial::drawDial(Serial_LCD * lcd0, 
+void gDial::drawDial(Serial_LCD * lcd, 
                      uint16_t x0, uint16_t y0, uint16_t radius,
                      uint16_t backColour, uint16_t frontColour, 
                      uint16_t gridColour, uint16_t valueColour) 
 {
-  _pscreen = lcd0;
+  _pscreen = lcd;
   
   _x0     = x0; 
   _y0     = y0; 
@@ -54,23 +54,23 @@ gClock::gClock() {
   ;
 }
 
-void gClock::dDefine(Serial_LCD * lcd0, 
+void gClock::dDefine(Serial_LCD * lcd, 
                      uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, 
                      uint16_t backColour, uint16_t frontColour, 
                      uint16_t hourColour, uint16_t minuteColour, uint16_t secondColour) 
 {  
   uint16_t radius = min(dx, dy)/2;
-  define(lcd0, x0+dx/2, y0+dy/2, radius-2, backColour, frontColour, hourColour, minuteColour, secondColour);
+  define(lcd, x0+dx/2, y0+dy/2, radius-2, backColour, frontColour, hourColour, minuteColour, secondColour);
 }
 
-void gClock::define(Serial_LCD * lcd0, 
+void gClock::define(Serial_LCD * lcd, 
                     uint16_t x0, uint16_t y0, uint16_t radius, 
                     uint16_t backColour, uint16_t frontColour, 
                     uint16_t hourColour, uint16_t minuteColour, uint16_t secondColour)  
 {    
-  drawDial(lcd0, x0, y0, radius, backColour, frontColour, 0, 0);
+  drawDial(lcd, x0, y0, radius, backColour, frontColour, 0, 0);
   
-  //  _pscreen = lcd0;
+  //  _pscreen = lcd;
   //  
   //  _x0 = x0; 
   //  _y0 = y0; 
@@ -170,23 +170,23 @@ gYaw::gYaw() {
   ;
 }
 
-void gYaw::dDefine(Serial_LCD * lcd0, 
+void gYaw::dDefine(Serial_LCD * lcd, 
                    uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, 
                    uint16_t backColour, uint16_t frontColour, 
                    uint16_t gridColour, uint16_t valueColour)  
 {
   uint16_t radius = min(dx, dy)/2;
-  define(lcd0, x0-radius, y0-radius, radius-2, backColour, frontColour, gridColour, valueColour);
+  define(lcd, x0-radius, y0-radius, radius-2, backColour, frontColour, gridColour, valueColour);
 }
 
-void gYaw::define(Serial_LCD * lcd0, 
+void gYaw::define(Serial_LCD * lcd, 
                   uint16_t x0, uint16_t y0, uint16_t radius, 
                   uint16_t backColour, uint16_t frontColour, 
                   uint16_t gridColour, uint16_t valueColour)  
 {  
-  drawDial(lcd0, x0, y0, radius, backColour, frontColour, gridColour, valueColour);
+  drawDial(lcd, x0, y0, radius, backColour, frontColour, gridColour, valueColour);
   
-  //  _pscreen = lcd0;
+  //  _pscreen = lcd;
   //  
   //  _x0 = x0; 
   //  _y0 = y0; 
@@ -284,23 +284,23 @@ gPitch::gPitch() {
   ;
 }
 
-void gPitch::dDefine(Serial_LCD * lcd0, 
+void gPitch::dDefine(Serial_LCD * lcd, 
                      uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, 
                      uint16_t backColour, uint16_t frontColour, 
                      uint16_t gridColour, uint16_t valueColour)  
 {
   uint16_t radius = min(dx, dy)/2;
-  define(lcd0, x0-radius, y0-radius, radius-2, backColour, frontColour, gridColour, valueColour);
+  define(lcd, x0-radius, y0-radius, radius-2, backColour, frontColour, gridColour, valueColour);
 }
 
-void gPitch::define(Serial_LCD * lcd0, 
+void gPitch::define(Serial_LCD * lcd, 
                     uint16_t x0, uint16_t y0, uint16_t radius, 
                     uint16_t backColour, uint16_t frontColour, 
                     uint16_t gridColour, uint16_t valueColour)  
 {  
-  drawDial(lcd0, x0, y0, radius, backColour, frontColour, gridColour, valueColour);
+  drawDial(lcd, x0, y0, radius, backColour, frontColour, gridColour, valueColour);
   
-  //  _pscreen = lcd0;
+  //  _pscreen = lcd;
   //  
   //  _x0 = x0; 
   //  _y0 = y0; 
@@ -416,23 +416,23 @@ gRoll::gRoll() {
   ;
 }
 
-void gRoll::dDefine(Serial_LCD * lcd0, 
+void gRoll::dDefine(Serial_LCD * lcd, 
                     uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, 
                     uint16_t backColour, uint16_t frontColour, 
                     uint16_t gridColour, uint16_t valueColour)  
 {  
   uint16_t radius = min(dx, dy)/2;
-  define(lcd0, x0-radius, y0-radius, radius-2, backColour, frontColour, gridColour, valueColour);
+  define(lcd, x0-radius, y0-radius, radius-2, backColour, frontColour, gridColour, valueColour);
 }
 
-void gRoll::define(Serial_LCD * lcd0, 
+void gRoll::define(Serial_LCD * lcd, 
                    uint16_t x0, uint16_t y0, uint16_t radius, 
                    uint16_t backColour, uint16_t frontColour, 
                    uint16_t gridColour, uint16_t valueColour)  
 {  
-  drawDial(lcd0, x0, y0, radius, backColour, frontColour, gridColour, valueColour);
+  drawDial(lcd, x0, y0, radius, backColour, frontColour, gridColour, valueColour);
   
-  //  _pscreen = lcd0;
+  //  _pscreen = lcd;
   //  
   //  _x0 = x0; 
   //  _y0 = y0; 
@@ -504,7 +504,7 @@ gGauge::gGauge() {
   ;
 }
 
-void gGauge::dDefine(Serial_LCD * lcd0, 
+void gGauge::dDefine(Serial_LCD * lcd, 
                      uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, 
                      float valueMin, float valueMax, 
                      uint16_t memory, uint16_t grid, 
@@ -512,7 +512,7 @@ void gGauge::dDefine(Serial_LCD * lcd0,
                      uint16_t valueColour, uint16_t minColour, uint16_t maxColour)  
 {  
   uint16_t radius = min(dx, dy)/2;
-  define(lcd0, 
+  define(lcd, 
          x0+dx/2, y0+dy/2, radius-2, 
          valueMin, valueMax, 
          memory, grid, 
@@ -520,16 +520,16 @@ void gGauge::dDefine(Serial_LCD * lcd0,
          valueColour, minColour, maxColour);
 }
 
-void gGauge::define(Serial_LCD * lcd0, 
+void gGauge::define(Serial_LCD * lcd, 
                     uint16_t x0, uint16_t y0, uint16_t radius, 
                     float valueMin, float valueMax, 
                     uint16_t memory, uint16_t grid, 
                     uint16_t backColour, uint16_t frontColour, uint16_t gridColour, 
                     uint16_t valueColour, uint16_t minColour, uint16_t maxColour)  
 {  
-  drawDial(lcd0, x0, y0, radius, backColour, frontColour, gridColour, valueColour);
+  drawDial(lcd, x0, y0, radius, backColour, frontColour, gridColour, valueColour);
   
-  //  _pscreen = lcd0;
+  //  _pscreen = lcd;
   //  
   //  _x0 = x0; 
   //  _y0 = y0; 
@@ -709,12 +709,12 @@ gPanel::gPanel() {
   ;
 }
 
-void gPanel::drawPanel(Serial_LCD * lcd0, 
+void gPanel::drawPanel(Serial_LCD * lcd, 
                        uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy,
                        uint16_t lapse, uint16_t gridX, uint16_t gridY, boolean continous,
                        uint16_t backColour, uint16_t frontColour, uint16_t gridColour)
 {
-  _pscreen = lcd0;
+  _pscreen = lcd;
   
   _x0 = x0; 
   _y0 = y0; 
@@ -831,7 +831,7 @@ gHistogram::gHistogram() {
   ;
 }
 
-void gHistogram::define(Serial_LCD * lcd0, 
+void gHistogram::define(Serial_LCD * lcd, 
                         uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, 
                         float valueMin, float valueMax, 
                         uint32_t lapse, uint16_t memory, 
@@ -839,7 +839,7 @@ void gHistogram::define(Serial_LCD * lcd0,
                         uint16_t backColour, uint16_t frontColour, uint16_t gridColour, 
                         uint16_t valueColour, uint16_t minColour, uint16_t maxColour)  
 {  
-  dDefine(lcd0, 
+  dDefine(lcd, 
           x1, y1, x2-x1, y2-y1, 
           valueMin, valueMax, 
           lapse, memory, 
@@ -848,7 +848,7 @@ void gHistogram::define(Serial_LCD * lcd0,
           valueColour, minColour, maxColour);
 }
 
-void gHistogram::dDefine(Serial_LCD * lcd0, 
+void gHistogram::dDefine(Serial_LCD * lcd, 
                          uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, 
                          float valueMin, float valueMax, 
                          uint32_t lapse, uint16_t memory, 
@@ -856,7 +856,7 @@ void gHistogram::dDefine(Serial_LCD * lcd0,
                          uint16_t backColour, uint16_t frontColour, uint16_t gridColour, 
                          uint16_t valueColour, uint16_t minColour, uint16_t maxColour)  
 {  
-  drawPanel(lcd0, 
+  drawPanel(lcd, 
             x0, y0, dx, dy,
             lapse, gridX, gridY, continous,
             backColour, frontColour, gridColour);
@@ -942,7 +942,7 @@ gMultiple::gMultiple() {
   ;
 }
 
-void gMultiple::define(Serial_LCD * lcd0, 
+void gMultiple::define(Serial_LCD * lcd, 
                        uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, 
                        String serie1, float valueMin1, float valueMax1, uint16_t valueColour1,
                        String serie2, float valueMin2, float valueMax2, uint16_t valueColour2,
@@ -951,7 +951,7 @@ void gMultiple::define(Serial_LCD * lcd0,
                        uint32_t lapse, uint16_t gridX, uint16_t gridY, boolean continous, 
                        uint16_t backColour, uint16_t frontColour, uint16_t gridColour)  
 {  
-  dDefine(lcd0, 
+  dDefine(lcd, 
           x1, y1, x2-x1, y2-y1, 
           serie1, valueMin1, valueMax1, valueColour1,
           serie2, valueMin2, valueMax2, valueColour2,
@@ -961,7 +961,7 @@ void gMultiple::define(Serial_LCD * lcd0,
           backColour, frontColour, gridColour);
 }
 
-void gMultiple::dDefine(Serial_LCD * lcd0, 
+void gMultiple::dDefine(Serial_LCD * lcd, 
                         uint16_t x0, uint16_t y0, uint16_t dx, uint16_t dy, 
                         String serie1, float valueMin1, float valueMax1, uint16_t valueColour1,
                         String serie2, float valueMin2, float valueMax2, uint16_t valueColour2,
@@ -970,7 +970,7 @@ void gMultiple::dDefine(Serial_LCD * lcd0,
                         uint32_t lapse, uint16_t gridX, uint16_t gridY, boolean continous, 
                         uint16_t backColour, uint16_t frontColour, uint16_t gridColour)  
 {  
-  drawPanel(lcd0, 
+  drawPanel(lcd, 
             x0, y0, dx, dy,
             lapse, gridX, gridY, continous,
             backColour, frontColour, gridColour);
