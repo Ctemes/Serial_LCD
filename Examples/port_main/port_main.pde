@@ -64,7 +64,7 @@
     NewSoftSerial mySerial(2, 3);
   #endif
 
-#elif defined(__32MX320F128H__) || defined(__32MX795F512L__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega644P__) // hardware serial Serial1
+#elif defined(__32MX320F128H__) || defined(__32MX795F512L__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega644P__) // hardware serial Serial1
   #define mySerial Serial1
 
 #else // error
@@ -135,7 +135,7 @@ void setup() {
 
   l=millis();
 
-  b7.define(&myLCD, 0, 0, 79, 59, setItem(0, "Stop"), myLCD.setColour(0xff, 0xff, 0xff), myLCD.setColour(0xff, 0x00, 0x00), myLCD.setColour(0x88, 0x00, 0x00), 9);
+  b7.dDefine(&myLCD, 0, 0, 80, 60, setItem(0, "Stop"), myLCD.setColour(0xff, 0xff, 0xff), myLCD.setColour(0xff, 0x00, 0x00), myLCD.setColour(0x88, 0x00, 0x00), 9);
 
   b7.enable(true);
   b7.draw();

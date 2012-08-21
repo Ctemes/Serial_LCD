@@ -59,12 +59,12 @@
 I2C_Serial mySerial(0);
 
 // --- Arduino SoftwareSerial Case - Arduino only
-#elif defined(__AVR_ATmega328P__) || defined(__AVR_ATmega328P__)
+#elif defined(__AVR_ATmega328P__) 
 #include "NewSoftSerial.h"
 NewSoftSerial mySerial(2, 3); // RX, TX
 
 // --- chipKIT HardwareSerial Case - chipKIT
-#elif defined(__PIC32MX__) || defined(__AVR_ATmega2560__)
+#elif defined(__PIC32MX__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
 #define mySerial Serial1
 
 #else

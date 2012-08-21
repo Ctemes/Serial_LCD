@@ -110,7 +110,7 @@ void setup() {
   myLCD.setTouch(true);
 
   l=millis();
-  b7.define(&myLCD, 0, 0, 79, 59, setItem(0, "Stop"), myLCD.setColour(0xff, 0xff, 0xff), myLCD.setColour(0xff, 0x00, 0x00), myLCD.setColour(0x88, 0x00, 0x00), 9);
+  b7.dDefine(&myLCD, 0, 0, 80, 60, setItem(0, "Stop"), myLCD.setColour(0xff, 0xff, 0xff), myLCD.setColour(0xff, 0x00, 0x00), myLCD.setColour(0x88, 0x00, 0x00), 9);
   b7.enable(true);
   b7.draw();
 

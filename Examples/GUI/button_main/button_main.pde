@@ -66,7 +66,7 @@
     NewSoftSerial mySerial(2, 3);
   #endif
 
-#elif defined(__32MX320F128H__) || defined(__32MX795F512L__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega644P__) // hardware serial Serial1
+#elif defined(__32MX320F128H__) || defined(__32MX795F512L__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega644P__) || defined(__AVR_ATmega1280__)  // hardware serial Serial1
   #define mySerial Serial1
 
 #else // error
@@ -96,7 +96,7 @@ void setup() {
 #elif defined(__AVR_ATmega328P__) 
   Serial.print("Software Serial\n");
 
-#elif defined(__32MX320F128H__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega644P__)
+#elif defined(__32MX320F128H__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega644P__) || defined(__AVR_ATmega1280__) 
   Serial.print("Hardware Serial\n");
 
 #endif 
