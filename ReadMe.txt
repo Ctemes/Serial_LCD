@@ -55,6 +55,7 @@ Jul 08, 2012 release 132	more compact library
 Jul 30, 2012 release 333	unified release numbering version 3xx
 Aug 03, 2012 release 333a	revised examples based on Docedison's feed-back
 Aug 21, 2012 release 334	__AVR_ATmega1280__ added
+Sep 01, 2012 release 335	__AVR_ATmega32U4__ added  
 
 
 proxySerial
@@ -74,6 +75,7 @@ Jun 14, 2012 release 109	unified release for Arduino 23 & 1.0, chipKIT and Wirin
 Jul 08, 2012 release 110	more compact library
 Jul 30, 2012 release 311	unified release numbering version 3xx
 Aug 21, 2012 release 312	__AVR_ATmega1280__ added
+Sep 01, 2012 release 313	__AVR_ATmega32U4__ added  
 
 
 button / GUI
@@ -97,6 +99,7 @@ Jun 14, 2012 release 113	unified release for Arduino 23 & 1.0, chipKIT and Wirin
 Jul 05, 2012 release 114	more compact library
 Jul 30, 2012 release 315	unified release numbering version 3xx
 Aug 21, 2012 release 316	__AVR_ATmega1280__ added
+Sep 01, 2012 release 317	__AVR_ATmega32U4__ added  
 
 
 Graphics
@@ -117,7 +120,8 @@ Jul 06, 2012 release 111	more compact library
 Jul 09, 2012 release 112	graphic for multiple values
 Jul 13, 2012 release 113	better dial for clock
 Jul 30, 2012 release 314	unified release numbering version 3xx
-Aug 21, 2012 release 316	__AVR_ATmega1280__ added
+Aug 21, 2012 release 315	__AVR_ATmega1280__ added
+Sep 01, 2012 release 316	__AVR_ATmega32U4__ added  
 
 
 Gallery
@@ -128,6 +132,7 @@ May 01, 2012 release 104	support for Wiring 1.0
 Jun 14, 2012 release 105	unified release for Arduino 23 & 1.0, chipKIT and Wiring
 Jul 30, 2012 release 306	unified release numbering version 3xx
 Aug 21, 2012 release 307	__AVR_ATmega1280__ added
+Sep 01, 2012 release 308	__AVR_ATmega32U4__ added  
 
 
 Energy
@@ -137,6 +142,7 @@ May 01, 2012 release 103	support for Wiring 1.0
 Jun 14, 2012 release 104	unified release for Arduino 23 & 1.0, chipKIT and Wiring
 Jul 30, 2012 release 305	unified release numbering version 3xx
 Aug 21, 2012 release 306	__AVR_ATmega1280__ added
+Sep 01, 2012 release 307	__AVR_ATmega32U4__ added  
 
 
 Full documentation with tutorial at
@@ -187,5 +193,6 @@ May 01, 2012 release 105	support for Wiring 1.0
 Jun 04, 2012 release 106	unified release for Arduino 23, Arduino 1.0, chipKIT MPIDE and Wiring
 Jul 30, 2012 release 306	unified release numbering version 3xx
 Aug 21, 2012 release 307	__AVR_ATmega1280__ added
+Sep 01, 2012 release 308	__AVR_ATmega32U4__ added  
 
 

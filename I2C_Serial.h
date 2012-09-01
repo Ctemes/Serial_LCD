@@ -8,8 +8,8 @@
 /// @n
 /// @author 	Rei VILO
 /// @author 	http://embeddedcomputing.weebly.com
-/// @date	Aug 21, 2012
-/// @version 	release 307
+/// @date	Sep 01, 2012
+/// @version 	release 308
 /// @n
 /// @copyright	© Rei VILO, 2010-2012
 /// @copyright	CC = BY NC SA
@@ -17,13 +17,13 @@
 ///
 
 
-#define I2C_SERIAL_RELEASE 307
+#define I2C_SERIAL_RELEASE 308
 
 #ifndef I2C_Serial_h
 #define I2C_Serial_h
 
 // Core library - MCU-based
-#if defined(__AVR_ATmega328P__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega1280__) // Arduino specific
+#if defined(__AVR_ATmega328P__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega32U4__) // Arduino specific
 #if defined(ARDUINO) && (ARDUINO >= 100)
 #include "Arduino.h" // for Arduino 1.0
 #else

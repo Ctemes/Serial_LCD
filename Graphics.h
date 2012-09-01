@@ -11,8 +11,8 @@
 /// @n
 /// @author 	Rei VILO
 /// @author 	http://embeddedcomputing.weebly.com
-/// @date	Aug 21, 2012
-/// @version 	release 315
+/// @date	Sep 01, 2012
+/// @version 	release 316
 /// @n
 /// @copyright 	© Rei VILO, 2010-2012
 /// @copyright 	CC = BY NC SA
@@ -24,13 +24,13 @@
 ///
 
 
-#define GRAPHICS_RELEASE 315
+#define GRAPHICS_RELEASE 316
 
 #ifndef Graphics_h
 #define Graphics_h
 
 // Core library - MCU-based
-#if defined(__AVR_ATmega328P__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega1280__) // Arduino specific
+#if defined(__AVR_ATmega328P__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega32U4__) // Arduino specific
 #if defined(ARDUINO) && (ARDUINO >= 100)
 #include "Arduino.h" // for Arduino 1.0
 #else

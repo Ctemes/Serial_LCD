@@ -2,7 +2,7 @@
 // SC16IS750 I2C slave bridge to serial
 // Arduino + chipKIT Library
 //
-// Aug 21, 2012 release 308
+// Sep 01, 2012 release 308
 // see README.txt
 //
 // © Rei VILO, 2010-2012
@@ -12,7 +12,7 @@
 //
 //
 // Core library - MCU-based
-#if defined(__AVR_ATmega328P__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega1280__) // Arduino specific
+#if defined(__AVR_ATmega328P__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega32U4__) // Arduino specific
   #if defined(ARDUINO) && (ARDUINO >= 100)
   #include "Arduino.h" // for Arduino 1.0
   #else
