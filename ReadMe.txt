@@ -122,6 +122,7 @@ Jul 13, 2012 release 113	better dial for clock
 Jul 30, 2012 release 314	unified release numbering version 3xx
 Aug 21, 2012 release 315	__AVR_ATmega1280__ added
 Sep 01, 2012 release 316	__AVR_ATmega32U4__ added  
+Sep 12, 2012 release 317	Gauge stability enhancement
 
 
 Gallery

@@ -11,8 +11,8 @@
 /// @n
 /// @author 	Rei VILO
 /// @author 	http://embeddedcomputing.weebly.com
-/// @date	Sep 01, 2012
-/// @version 	release 316
+/// @date	Sep 12, 2012
+/// @version 	release 317
 /// @n
 /// @copyright 	© Rei VILO, 2010-2012
 /// @copyright 	CC = BY NC SA
@@ -24,7 +24,7 @@
 ///
 
 
-#define GRAPHICS_RELEASE 316
+#define GRAPHICS_RELEASE 317
 
 #ifndef Graphics_h
 #define Graphics_h
@@ -163,7 +163,7 @@ private:
   uint16_t _n, _amnesiaMin, _amnesiaMax;
   uint32_t _lapse;
   uint16_t _memory, _grid;
-  uint16_t _gridColour, _valueColour, _minColour, _maxColour;
+  uint16_t _minColour, _maxColour;
 };
 
 
