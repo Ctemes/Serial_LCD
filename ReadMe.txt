@@ -134,6 +134,7 @@ Jun 14, 2012 release 105	unified release for Arduino 23 & 1.0, chipKIT and Wirin
 Jul 30, 2012 release 306	unified release numbering version 3xx
 Aug 21, 2012 release 307	__AVR_ATmega1280__ added
 Sep 01, 2012 release 308	__AVR_ATmega32U4__ added  
+Sep 18, 2012 release 309	specific non-vector based table of pictures for chipKIT MPIDE
 
 
 Energy

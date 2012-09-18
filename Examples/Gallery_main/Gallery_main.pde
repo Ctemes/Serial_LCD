@@ -43,8 +43,8 @@
 #include "Gallery.h"
 
 // test release
-#if GALLERY_RELEASE < 306
-#error required GALLERY_RELEASE 306
+#if GALLERY_RELEASE < 309
+#error required GALLERY_RELEASE 309
 #endif
 
 // === Serial port choice ===

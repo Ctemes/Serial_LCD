@@ -11,8 +11,8 @@
 /// 
 /// @author 	Rei VILO
 /// @author 	http://embeddedcomputing.weebly.com
-/// @date	Sep 01, 2012
-/// @version 	release 303
+/// @date	Sep 19, 2012
+/// @version 	release 304
 /// @n
 /// @copyright	© Rei VILO, 2010-2012
 /// @copyright	CC = BY NC SA
@@ -22,6 +22,10 @@
 /// @see	Container for objects like C++ vector
 /// @n		http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1289151491
 ///
+
+#ifdef MPIDE // chipKIT specific
+#error chipKIT MPIDE doesn't support vector_t
+#endif
 
 #ifndef _VECTOR_T_H
 #define _VECTOR_T_H
@@ -56,9 +60,9 @@ public:
     return *this; 
   }; // Needed for memory management
   
-  void push_back(Data const &x) { 
-    if (d_capacity == d_size) resize(); 
-    d_data[d_size++] = x; 
+  void push_back(Data const &x) {
+    if (d_capacity == d_size) resize();
+    d_data[d_size++] = x;
   }; // Adds new value. If needed, allocates more space
   
   size_t size() const { 
@@ -75,11 +79,12 @@ public:
   
 private:
   void resize() { 
-    d_capacity = d_capacity ? d_capacity*2 : 1; 
-    Data *newdata = (Data *)malloc(d_capacity*sizeof(Data)); 
-    memcpy(newdata, d_data, d_size * sizeof(Data)); 
-    free(d_data); 
-    d_data = newdata; 
+    d_capacity = d_capacity ? d_capacity*2 : 1;
+    Data *newdata = (Data *)malloc(d_capacity*sizeof(Data));
+    memcpy(newdata, d_data, d_size * sizeof(Data));
+    free(d_data);
+    d_data = newdata;
+
   }; // Allocates double the old space
 }; 
 

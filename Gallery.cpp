@@ -3,7 +3,7 @@
 // Arduino 0023 and 1.0, chipKIT MPIDE 0023, Wiring 1.0
 // ----------------------------------
 //
-// Sep 01, 2012 release 308
+// Sep 19, 2012 release 309
 // See README.txt
 //
 // © Rei VILO, 2010-2012
@@ -19,10 +19,11 @@
 // Library header
 #include "Gallery.h"
 
-// Other libraries
-#include "Serial_LCD.h"
-#include "vector_t.h"
+//// Other libraries
+//#include "Serial_LCD.h"
+//#include "vector_t.h"
 
+//
 // Utilities
 //
 uint16_t stoh(String in)
@@ -108,6 +109,10 @@ uint8_t Gallery::begin(Serial_LCD * lcd, String name)
   String text;
   String s[5];
   _name = name;
+
+#ifdef MPIDE // chipKIT specific
+  _size = 0;
+#endif
   
   // check SD-card
   if ( _pscreen->checkSD()==false ) {
@@ -137,8 +142,17 @@ uint8_t Gallery::begin(Serial_LCD * lcd, String name)
     text = text.trim();
 #endif
     splitString(text, ' ', s, 5);
-    
+      
     // store
+#ifdef MPIDE // chipKIT specific
+    _size ++;
+    if (_size > MAXPICTURE) _size = MAXPICTURE; 
+  
+    _gallery[_size-1].msb = stoh(s[2]);
+    _gallery[_size-1].lsb = stoh(s[1]);
+    _gallery[_size-1].x   = stoh(s[3]);
+    _gallery[_size-1].y   = stoh(s[4]);
+#else
     image_t _image;
     _gallery.push_back(_image);
     
@@ -146,14 +160,24 @@ uint8_t Gallery::begin(Serial_LCD * lcd, String name)
     _gallery[_gallery.size()-1].lsb = stoh(s[1]);
     _gallery[_gallery.size()-1].x   = stoh(s[3]);
     _gallery[_gallery.size()-1].y   = stoh(s[4]);
+#endif
   }
+
   _index = 0;
+#ifdef MPIDE // chipKIT specific
+  return _size;
+#else
   return _gallery.size();
+#endif
 }
 
 uint8_t Gallery::number()
 {
+#ifdef MPIDE // chipKIT specific
+  return _size;
+#else
   return _gallery.size();
+#endif
 }
 
 uint8_t Gallery::index()
@@ -164,14 +188,23 @@ uint8_t Gallery::index()
 uint8_t Gallery::showNext()
 {
   _index ++;
+  
+#ifdef MPIDE // chipKIT specific
+  _index %= _size;
+#else
   _index %= _gallery.size();
+#endif
   
   return showImage(_index);
 }
 
 uint8_t Gallery::showPrevious()
 {
-  if ( _index==0 ) _index=_gallery.size();
+#ifdef MPIDE // chipKIT specific
+  if ( _index==0 ) _index = _size;
+#else
+  if ( _index==0 ) _index = _gallery.size();
+#endif
   _index--;
   
   return showImage(_index);
@@ -179,7 +212,12 @@ uint8_t Gallery::showPrevious()
 
 uint8_t Gallery::showImage(uint8_t index)
 {
+#ifdef MPIDE // chipKIT specific
+  if ( (index<_size) )
+#else
   if ( (index<_gallery.size()) )
+#endif
+  
     return _pscreen->readScreenGCI(Gallery::_name+".gci", _gallery[index].x, _gallery[index].y, _gallery[index].msb, _gallery[index].lsb);
   else
     return 0x15;

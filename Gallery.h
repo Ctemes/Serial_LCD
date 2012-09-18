@@ -8,8 +8,8 @@
 /// 
 /// @author 	Rei VILO
 /// @author 	http://embeddedcomputing.weebly.com
-/// @date	Sep 01, 2012
-/// @version 	release 308
+/// @date	Sep 19, 2012
+/// @version 	release 309
 /// @n
 /// @copyright	© Rei VILO, 2010-2012
 /// @copyright	CC = BY NC SA
@@ -20,7 +20,7 @@
 /// @n		http://www.4dsystems.com.au/
 ///
 
-#define GALLERY_RELEASE 308
+#define GALLERY_RELEASE 309
 
 #ifndef Gallery_h
 #define Gallery_h
@@ -44,7 +44,21 @@
 
 // Other libraries
 #include "Serial_LCD.h"
+
+#ifdef MPIDE // chipKIT specific
+///
+/// @brief	chipKIT and vector type
+/// @warning 	chipKIT MPIDE doesn't support vector
+///		as an alternative, classic array
+///		MAXPICTURE stands for the maximum number of pictures
+/// @n		malloc() and free() require linker command
+/// @n		pic32-gcc foo.c -Wl,--defsym,_min_heap_size=512
+/// @see	http://www.chipkit.org/forum/viewtopic.php?f=6&t=251&hilit=malloc+free
+///
+#define MAXPICTURE 64
+#else
 #include "vector_t.h"
+#endif
 
 #if SERIAL_LCD_RELEASE < 334
 #error required SERIAL_LCD_RELEASE 334
@@ -69,7 +83,12 @@ private:
   Serial_LCD * _pscreen;
   String _name;
   uint8_t _index;
+#ifdef MPIDE // chipKIT specific
+  image_t _gallery[MAXPICTURE];
+  uint16_t _size;
+#else
   Vector_t <image_t> _gallery;
+#endif
 };
 
 
