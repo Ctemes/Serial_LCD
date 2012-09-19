@@ -56,6 +56,7 @@ Jul 30, 2012 release 333	unified release numbering version 3xx
 Aug 03, 2012 release 333a	revised examples based on Docedison's feed-back
 Aug 21, 2012 release 334	__AVR_ATmega1280__ added
 Sep 01, 2012 release 335	__AVR_ATmega32U4__ added  
+Sep 19, 2012 release 336	stability enhancement
 
 
 proxySerial
@@ -122,7 +123,6 @@ Jul 13, 2012 release 113	better dial for clock
 Jul 30, 2012 release 314	unified release numbering version 3xx
 Aug 21, 2012 release 315	__AVR_ATmega1280__ added
 Sep 01, 2012 release 316	__AVR_ATmega32U4__ added  
-Sep 12, 2012 release 317	Gauge stability enhancement
 
 
 Gallery
@@ -135,6 +135,7 @@ Jul 30, 2012 release 306	unified release numbering version 3xx
 Aug 21, 2012 release 307	__AVR_ATmega1280__ added
 Sep 01, 2012 release 308	__AVR_ATmega32U4__ added  
 Sep 18, 2012 release 309	specific non-vector based table of pictures for chipKIT MPIDE
+Sep 19, 2012 release 310	stability enhancement
 
 
 Energy

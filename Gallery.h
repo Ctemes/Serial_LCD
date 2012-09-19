@@ -9,7 +9,7 @@
 /// @author 	Rei VILO
 /// @author 	http://embeddedcomputing.weebly.com
 /// @date	Sep 19, 2012
-/// @version 	release 309
+/// @version 	release 310
 /// @n
 /// @copyright	© Rei VILO, 2010-2012
 /// @copyright	CC = BY NC SA
@@ -20,7 +20,7 @@
 /// @n		http://www.4dsystems.com.au/
 ///
 
-#define GALLERY_RELEASE 309
+#define GALLERY_RELEASE 310
 
 #ifndef Gallery_h
 #define Gallery_h
@@ -60,8 +60,8 @@
 #include "vector_t.h"
 #endif
 
-#if SERIAL_LCD_RELEASE < 334
-#error required SERIAL_LCD_RELEASE 334
+#if SERIAL_LCD_RELEASE < 336
+#error required SERIAL_LCD_RELEASE 336
 #endif
 
 class Gallery {
@@ -85,7 +85,7 @@ private:
   uint8_t _index;
 #ifdef MPIDE // chipKIT specific
   image_t _gallery[MAXPICTURE];
-  uint16_t _size;
+  uint16_t _number;
 #else
   Vector_t <image_t> _gallery;
 #endif

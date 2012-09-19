@@ -3,7 +3,7 @@
 // Arduino 0023 and 1.0, chipKIT MPIDE 0023, Wiring 1.0
 // ----------------------------------
 //
-// Sep 01, 2012 release 335
+// Sep 19, 2012 release 336
 // See README.txt
 //
 // © Rei VILO, 2010-2012
@@ -822,7 +822,7 @@ uint8_t Serial_LCD::readTextFile(String filename, uint8_t bytes, void (*cbReadFi
   
   while(!_port->available());
   for (uint8_t j=0; j<4; j++) {
-    fileSize <<= 4;
+    fileSize <<= 8;
     fileSize |= _port->read();
   }
   
@@ -876,7 +876,7 @@ uint8_t Serial_LCD::readTextFileDelimiter(String filename, char delimiter, void 
   
   while(!_port->available());
   for (uint8_t j=0; j<4; j++) {
-    fileSize <<= 4;
+    fileSize <<= 8;
     fileSize |= _port->read();
   }
   
@@ -931,10 +931,17 @@ uint8_t Serial_LCD::openTextFileDelimiter(String filename, char delimeter) {
   delay(100);
   while(!_port->available());
   for (uint8_t j=0; j<4; j++) {
-    _fileSize <<= 4;
+    _fileSize <<= 8;
     _fileSize |= _port->read();
+    
+//    Serial.print("size ");
+//    Serial.print(j, DEC);
+//    Serial.print(" + ");
+//    Serial.print(b, DEC);
+//    Serial.print(" = ");
+//    Serial.println(_fileSize, DEC);
   }
-  
+
   return 0x06;
 }
 
@@ -955,7 +962,8 @@ boolean Serial_LCD::nextTextFileDelimiter(String * result) { // false = end
     
     do {
       delay(10);
-      c = _port->read();  
+      c = _port->read();
+      
       if ( (c==0x06) || (_fileSize==0) ) {
         done = true;
       } 
@@ -975,6 +983,7 @@ boolean Serial_LCD::nextTextFileDelimiter(String * result) { // false = end
     delay(10);
     while (_port->available()) _port->read(); 
   };
+  
   
   return !done; // return true to continue, false if EOF
 }

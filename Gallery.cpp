@@ -3,7 +3,7 @@
 // Arduino 0023 and 1.0, chipKIT MPIDE 0023, Wiring 1.0
 // ----------------------------------
 //
-// Sep 19, 2012 release 309
+// Sep 19, 2012 release 310
 // See README.txt
 //
 // © Rei VILO, 2010-2012
@@ -74,7 +74,7 @@ uint16_t stod(String in)
   return w;
 }
 
-uint8_t splitString(String in, char delimiter, String s[], uint8_t max)
+uint8_t _splitString(String in, char delimiter, String s[], uint8_t max)
 {
   uint8_t j=0;
   char c;
@@ -111,7 +111,7 @@ uint8_t Gallery::begin(Serial_LCD * lcd, String name)
   _name = name;
 
 #ifdef MPIDE // chipKIT specific
-  _size = 0;
+  _number = 0;
 #endif
   
   // check SD-card
@@ -128,30 +128,52 @@ uint8_t Gallery::begin(Serial_LCD * lcd, String name)
   if (a==0x15) return 0;
   
   a = _pscreen->openTextFileDelimiter(_name+".dat", '\n');
+//  Serial.print("openTextFileDelimiter");
   if (a==0x15) return 0;
   
   while (_pscreen->nextTextFileDelimiter(&text)) {
+    
+//    Serial.print(_number+1, DEC);
+//    Serial.print(": ");
+//    Serial.println(text);
+
     // clean and split
 #if defined(WIRING) // Wiring specific
     text.trim();
+    text.substring(text.lastIndexOf('"')+1);
 #elif defined(ARDUINO) && (ARDUINO >= 100) //  Arduino 1.0 specific
     text.trim();
+    text.substring(text.lastIndexOf('"')+1);
 #elif defined(MAPLE_IDE)
     text.trim();
+    text.substring(text.lastIndexOf('"')+1);
 #else
     text = text.trim();
+    text = text.substring(text.lastIndexOf('"')+1);
 #endif
-    splitString(text, ' ', s, 5);
-      
+    
+    _splitString(text, ' ', s, 5);
+    
+//    Serial.print(_number+1, DEC);
+//    Serial.print(": msb =");
+//    Serial.print(stoh(s[2]), HEX);
+//    Serial.print(" lsb =");
+//    Serial.print(stoh(s[1]), HEX);
+//    Serial.print(" x   =");
+//    Serial.print(stoh(s[3]), DEC);
+//    Serial.print(" y   =");
+//    Serial.println(stoh(s[4]), DEC);
+                              
+                              
     // store
 #ifdef MPIDE // chipKIT specific
-    _size ++;
-    if (_size > MAXPICTURE) _size = MAXPICTURE; 
+    _number ++;
+    if (_number > MAXPICTURE) _number = MAXPICTURE; 
   
-    _gallery[_size-1].msb = stoh(s[2]);
-    _gallery[_size-1].lsb = stoh(s[1]);
-    _gallery[_size-1].x   = stoh(s[3]);
-    _gallery[_size-1].y   = stoh(s[4]);
+    _gallery[_number-1].msb = stoh(s[2]);
+    _gallery[_number-1].lsb = stoh(s[1]);
+    _gallery[_number-1].x   = stoh(s[3]);
+    _gallery[_number-1].y   = stoh(s[4]);
 #else
     image_t _image;
     _gallery.push_back(_image);
@@ -165,7 +187,7 @@ uint8_t Gallery::begin(Serial_LCD * lcd, String name)
 
   _index = 0;
 #ifdef MPIDE // chipKIT specific
-  return _size;
+  return _number;
 #else
   return _gallery.size();
 #endif
@@ -174,7 +196,7 @@ uint8_t Gallery::begin(Serial_LCD * lcd, String name)
 uint8_t Gallery::number()
 {
 #ifdef MPIDE // chipKIT specific
-  return _size;
+  return _number;
 #else
   return _gallery.size();
 #endif
@@ -190,7 +212,7 @@ uint8_t Gallery::showNext()
   _index ++;
   
 #ifdef MPIDE // chipKIT specific
-  _index %= _size;
+  _index %= _number;
 #else
   _index %= _gallery.size();
 #endif
@@ -201,7 +223,7 @@ uint8_t Gallery::showNext()
 uint8_t Gallery::showPrevious()
 {
 #ifdef MPIDE // chipKIT specific
-  if ( _index==0 ) _index = _size;
+  if ( _index==0 ) _index = _number;
 #else
   if ( _index==0 ) _index = _gallery.size();
 #endif
@@ -213,7 +235,7 @@ uint8_t Gallery::showPrevious()
 uint8_t Gallery::showImage(uint8_t index)
 {
 #ifdef MPIDE // chipKIT specific
-  if ( (index<_size) )
+  if ( (index<_number) )
 #else
   if ( (index<_gallery.size()) )
 #endif

@@ -11,8 +11,8 @@
 /// 
 /// @author 	Rei VILO
 /// @author 	http://embeddedcomputing.weebly.com
-/// @date	Sep 01, 2012
-/// @version	release 335
+/// @date	Sep 19, 2012
+/// @version	release 336
 /// @n
 /// @copyright 	© Rei VILO, 2010-2012
 /// @copyright 	CC = BY NC SA
@@ -25,7 +25,7 @@
 ///
 
 
-#define SERIAL_LCD_RELEASE 335
+#define SERIAL_LCD_RELEASE 336
 
 #ifndef Serial_LCD_h
 #define Serial_LCD_h
