@@ -56,6 +56,8 @@ SoftwareSerial mySerial(2, 3);
 NewSoftSerial mySerial(2, 3);
 #endif
 
+// pin 4 for RESET
+
 ProxySerial myPort(&mySerial); // hardware abstraction layer
 Serial_LCD myLCD(&myPort); // LCD
 
@@ -89,7 +91,7 @@ void setup() {
   //  //
   //  // ===
 
-  myLCD.begin();
+  myLCD.begin(4);
 
   delay(10);
   myLCD.setSpeed(38400);
